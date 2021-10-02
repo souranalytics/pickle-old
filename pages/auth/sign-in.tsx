@@ -10,7 +10,7 @@ import { Header } from '@pickle/components/common/header'
 import { Input } from '@pickle/components/common/input'
 import { Message } from '@pickle/components/common/message'
 import { useSignIn } from '@pickle/hooks/auth/sign-in'
-import { supabase } from '@pickle/lib/supabase/server'
+import { getUser } from '@pickle/lib/auth'
 
 const SignIn: NextPage = () => {
   const { error, loading, signUp } = useSignIn()
@@ -75,7 +75,7 @@ const SignIn: NextPage = () => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const { user } = await supabase.auth.api.getUserByCookie(req)
+  const user = await getUser(req)
 
   if (user) {
     return {

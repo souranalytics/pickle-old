@@ -10,7 +10,7 @@ import { Header } from '@pickle/components/common/header'
 import { Input } from '@pickle/components/common/input'
 import { Message } from '@pickle/components/common/message'
 import { useResetPassword } from '@pickle/hooks/auth/reset-password'
-import { supabase } from '@pickle/lib/supabase/server'
+import { getUser } from '@pickle/lib/auth'
 
 const ResetPassword: NextPage = () => {
   const { error, loading, resetPassword, success } = useResetPassword()
@@ -73,7 +73,7 @@ const ResetPassword: NextPage = () => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const { user } = await supabase.auth.api.getUserByCookie(req)
+  const user = await getUser(req)
 
   if (user) {
     return {
