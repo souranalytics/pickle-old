@@ -1,12 +1,26 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  darkMode: 'media',
+  darkMode: false,
+  mode: 'jit',
   plugins: [],
-  purge: ['pages/**/*.tsx', 'components/**/*.tsx'],
+  purge: [
+    '@pickle/components/**/*.tsx',
+    'pages/**/*.tsx',
+    'styles/global.scss'
+  ],
   theme: {
     colors,
-    extend: {}
+    extend: {
+      colors: {
+        accent: colors.violet,
+        primary: colors.indigo
+      }
+    },
+    fontFamily: {
+      body: ['Satoshi', 'sans-serif'],
+      mono: ['Roboto Mono', 'monospace']
+    }
   },
   variants: {
     extend: {}

@@ -3,22 +3,42 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "db:dev": "yarn prisma migrate dev",
+    "db:migrate": "env-cmd -f .env.production prisma migrate deploy",
+    "db:push": "yarn prisma db push",
     "dev": "next dev",
+    "graphcms": "env-cmd -f .env.local graphql-codegen",
     "lint": "next lint",
     "prepare": "husky install",
+    "prisma": "env-cmd -f .env.local prisma",
     "start": "next start"
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.4",
+    "@prisma/client": "3.1.1",
+    "@supabase/supabase-js": "^1.24.0",
+    "axios": "^0.22.0",
+    "graphql": "^15.6.0",
+    "graphql-request": "^3.5.0",
+    "millify": "^4.0.0",
     "next": "11.1.2",
+    "next-connect": "^0.10.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "sass": "^1.42.1"
+    "react-markdown": "^7.0.1",
+    "sass": "^1.42.1",
+    "swr": "^1.0.1",
+    "tailwind-merge": "^0.7.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.2.0",
+    "@graphql-codegen/typescript": "^2.2.2",
     "@types/react": "17.0.26",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "autoprefixer": "^10.3.6",
+    "babel-plugin-superjson-next": "^0.4.1",
+    "env-cmd": "^10.1.0",
     "eslint": "^7.32.0",
     "eslint-config-next": "11.1.2",
     "eslint-config-prettier": "^8.3.0",
@@ -32,6 +52,8 @@
     "postcss": "^8.3.8",
     "prettier": "^2.4.1",
     "pretty-quick": "^3.1.1",
+    "prisma": "3.1.1",
+    "superjson": "^1.7.5",
     "tailwindcss": "^2.2.16",
     "typescript": "4.4.3"
   }

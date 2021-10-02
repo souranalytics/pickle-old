@@ -1,0 +1,6 @@
+schema: ${GRAPH_CMS_URL}
+overwrite: true
+generates:
+  '@pickle/types/graphcms.ts':
+    plugins:
+      - typescript

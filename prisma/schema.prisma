@@ -1,0 +1,112 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// enums
+
+enum CollaboratorRole {
+  owner
+  member
+}
+
+// models
+
+model Plan {
+  id String @id
+
+  name    String
+  events  Int
+  screens Int
+  price   Float
+  visible Boolean
+
+
+  apps App[]
+}
+
+model Profile {
+  id String @id
+
+  name  String
+  email String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  collaborations Collaborator[]
+}
+
+model App {
+  id Int @id @default(autoincrement())
+
+  name String
+
+  plan   Plan   @relation(fields: [planId], references: [id])
+  planId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  collaborators Collaborator[]
+  events        Event[]
+  keys          Key[]
+  screens       Screen[]
+}
+
+model Key {
+  id Int @id @default(autoincrement())
+
+  app   App @relation(fields: [appId], references: [id])
+  appId Int
+
+  key String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Collaborator {
+  id Int @id @default(autoincrement())
+
+  profile   Profile @relation(fields: [profileId], references: [id])
+  profileId String
+
+  app   App @relation(fields: [appId], references: [id])
+  appId Int
+
+  role CollaboratorRole
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id Int @id @default(autoincrement())
+
+  app   App @relation(fields: [appId], references: [id])
+  appId Int
+
+  name String
+  data Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Screen {
+  id Int @id @default(autoincrement())
+
+  app   App @relation(fields: [appId], references: [id])
+  appId Int
+
+  name String
+  data Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
