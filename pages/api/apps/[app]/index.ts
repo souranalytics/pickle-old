@@ -35,7 +35,10 @@ const handler: NextApiHandler = connect(apiOptions)
   .put(async (req, res: NextApiResponse<AppResponse>) => {
     const user = await getUser(req)
 
-    const data = validateData(schemaPut, req.query)
+    const data = validateData(schemaPut, {
+      ...req.query,
+      ...req.body
+    })
 
     const app = await getApp(user, data.app, 'owner')
 

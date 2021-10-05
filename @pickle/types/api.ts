@@ -3,8 +3,8 @@ import {
   App,
   Collaborator,
   Event,
-  Key,
   Plan,
+  Prisma,
   Profile,
   Screen,
   User
@@ -50,11 +50,11 @@ export type CollaboratorResponse = {
 }
 
 export type KeysResponse = {
-  keys: Array<Key>
+  keys: Array<Prisma.Key>
 }
 
 export type KeyResponse = {
-  key: Key
+  key: Prisma.Key
 }
 
 export type EventResponse = {
