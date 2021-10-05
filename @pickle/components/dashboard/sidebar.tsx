@@ -34,6 +34,11 @@ export const SideBar: FunctionComponent = () => {
         href: 'keys',
         icon: 'key',
         label: 'Keys'
+      },
+      {
+        href: 'settings',
+        icon: 'settings',
+        label: 'Settings'
       }
     ],
     [
@@ -93,7 +98,7 @@ export const SideBar: FunctionComponent = () => {
                 <Link href={url} key={`item-${index}`}>
                   <a
                     className={twMerge(
-                      'flex items-center px-4 py-2 font-medium text-gray-800 hover:bg-white',
+                      'flex items-center px-4 py-2 font-medium text-gray-800 hover:bg-gray-200',
                       (href === ''
                         ? router.asPath === url
                         : router.asPath.startsWith(url)) && 'bg-white'

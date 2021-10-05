@@ -3,9 +3,8 @@ import connect from 'next-connect'
 import { z } from 'zod'
 
 import { apiOptions, getApp, getUser, validateData } from '@pickle/lib/api'
-import { apiError } from '@pickle/lib/error'
 import { prisma } from '@pickle/lib/prisma'
-import { CollaboratorResponse, CollaboratorsResponse } from '@pickle/types/api'
+import { KeyResponse, KeysResponse } from '@pickle/types/api'
 
 const schemaGet = z.object({
   app: z.string()
@@ -13,23 +12,20 @@ const schemaGet = z.object({
 
 const schemaPost = z.object({
   app: z.string(),
-  email: z.string().email()
+  name: z.string()
 })
 
 const handler: NextApiHandler = connect(apiOptions)
-  .get(async (req, res: NextApiResponse<CollaboratorsResponse>) => {
+  .get(async (req, res: NextApiResponse<KeysResponse>) => {
     const user = await getUser(req)
 
     const data = validateData(schemaGet, req.query)
 
     const app = await getApp(user, data.app)
 
-    const collaborators = await prisma.collaborator.findMany({
-      include: {
-        profile: true
-      },
+    const keys = await prisma.key.findMany({
       orderBy: {
-        createdAt: 'asc'
+        createdAt: 'desc'
       },
       where: {
         app: {
@@ -39,10 +35,10 @@ const handler: NextApiHandler = connect(apiOptions)
     })
 
     res.json({
-      collaborators
+      keys
     })
   })
-  .post(async (req, res: NextApiResponse<CollaboratorResponse>) => {
+  .post(async (req, res: NextApiResponse<KeyResponse>) => {
     const user = await getUser(req)
 
     const data = validateData(schemaPost, {
@@ -52,37 +48,19 @@ const handler: NextApiHandler = connect(apiOptions)
 
     const app = await getApp(user, data.app, 'owner')
 
-    const profile = await prisma.profile.findUnique({
-      where: {
-        email: data.email
-      }
-    })
-
-    if (!profile) {
-      throw apiError(404, 'User not found')
-    }
-
-    const collaborator = await prisma.collaborator.create({
+    const key = await prisma.key.create({
       data: {
         app: {
           connect: {
             id: app.id
           }
         },
-        profile: {
-          connect: {
-            id: profile.id
-          }
-        },
-        role: 'member'
-      },
-      include: {
-        profile: true
+        name: data.name
       }
     })
 
     res.json({
-      collaborator
+      key
     })
   })
 

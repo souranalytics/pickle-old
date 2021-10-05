@@ -3,27 +3,25 @@ import React from 'react'
 import useSWR from 'swr'
 import { twMerge } from 'tailwind-merge'
 
-import { CollaboratorAdd } from '@pickle/components/collaborators/add'
-import { CollaboratorCard } from '@pickle/components/collaborators/card'
 import { Message } from '@pickle/components/common/message'
 import { Spinner } from '@pickle/components/common/spinner'
 import { Layout } from '@pickle/components/dashboard/layout'
+import { KeyAdd } from '@pickle/components/keys/add'
+import { KeyCard } from '@pickle/components/keys/card'
 import { getUser } from '@pickle/lib/auth'
-import { CollaboratorsResponse } from '@pickle/types/api'
+import { KeysResponse } from '@pickle/types/api'
 
 type Props = {
   slug: string
 }
 
 const Dashboard: NextPage<Props> = ({ slug }) => {
-  const { data, error, isValidating, mutate } = useSWR<CollaboratorsResponse>(
-    `/apps/${slug}/collaborators`
+  const { data, error, isValidating, mutate } = useSWR<KeysResponse>(
+    `/apps/${slug}/keys`
   )
 
   return (
-    <Layout
-      header={<CollaboratorAdd onAdd={mutate} slug={slug} />}
-      title="Collaborators">
+    <Layout header={<KeyAdd onAdd={mutate} slug={slug} />} title="Keys">
       {error && (
         <Message className={twMerge(data && 'mb-8')} type="error">
           {error.message}
@@ -32,11 +30,8 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
 
       {data && (
         <div className="grid gap-4 lg:grid-cols-3">
-          {data.collaborators.map(collaborator => (
-            <CollaboratorCard
-              collaborator={collaborator}
-              key={collaborator.id}
-            />
+          {data.keys.map(key => (
+            <KeyCard data={key} key={key.id} />
           ))}
         </div>
       )}

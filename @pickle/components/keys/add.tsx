@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-import { useAddCollaborator } from '@pickle/hooks/collaborators/add'
+import { useAddKey } from '@pickle/hooks/keys/add'
 
 import { Button } from '../common/button'
 import { Form } from '../common/form'
@@ -16,16 +16,16 @@ type Props = {
   onAdd: () => void
 }
 
-export const CollaboratorAdd: FunctionComponent<Props> = ({
+export const KeyAdd: FunctionComponent<Props> = ({
   className,
   onAdd,
   slug
 }) => {
   const [visible, setVisible] = useState(false)
 
-  const { addCollaborator, error, loading } = useAddCollaborator(slug)
+  const { addKey, error, loading } = useAddKey(slug)
 
-  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
 
   return (
     <>
@@ -42,7 +42,7 @@ export const CollaboratorAdd: FunctionComponent<Props> = ({
         className="p-6"
         onClose={() => setVisible(false)}
         visible={visible}>
-        <h2 className="text-2xl font-semibold">Add a collaborator</h2>
+        <h2 className="text-2xl font-semibold">Add a key</h2>
 
         {error && (
           <Message className="mt-4" type="error">
@@ -53,20 +53,21 @@ export const CollaboratorAdd: FunctionComponent<Props> = ({
         <Form
           className="mt-8"
           onSubmit={async () => {
-            await addCollaborator(email)
+            await addKey(name)
 
-            setEmail('')
+            setName('')
             setVisible(false)
 
             onAdd()
           }}>
           <Input
-            label="What's their email?"
-            onChange={email => setEmail(email)}
-            placeholder="Email"
+            description="Like Staging or Production"
+            label="Pick a name for this key"
+            onChange={name => setName(name)}
+            placeholder="Name"
             required
-            type="email"
-            value={email}
+            type="text"
+            value={name}
           />
 
           <Button className="mt-8" loading={loading}>

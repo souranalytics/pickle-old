@@ -3,6 +3,7 @@ import {
   App,
   Collaborator,
   Event,
+  Key,
   Plan,
   Profile,
   Screen,
@@ -46,6 +47,14 @@ export type CollaboratorResponse = {
   collaborator: Collaborator & {
     profile: Profile
   }
+}
+
+export type KeysResponse = {
+  keys: Array<Key>
+}
+
+export type KeyResponse = {
+  key: Key
 }
 
 export type EventResponse = {
