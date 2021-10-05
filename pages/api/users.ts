@@ -2,7 +2,7 @@ import { NextApiHandler, NextApiResponse } from 'next'
 import connect from 'next-connect'
 import { z } from 'zod'
 
-import { apiOptions, getApp, validateData } from '@pickle/lib/api'
+import { apiOptions, getAppByKey, validateData } from '@pickle/lib/api'
 import { prisma } from '@pickle/lib/prisma'
 import { zodJson } from '@pickle/lib/zod'
 import { UserResponse } from '@pickle/types/api'
@@ -16,7 +16,7 @@ const schemaPost = z.object({
 
 const handler: NextApiHandler = connect(apiOptions).post(
   async (req, res: NextApiResponse<UserResponse>) => {
-    const app = await getApp(req)
+    const app = await getAppByKey(req)
 
     const { anonymousId, data, id, meta } = validateData(schemaPost, req.body)
 

@@ -28,7 +28,7 @@ export const getUser = async (req: NextApiRequest): Promise<User> => {
   return user
 }
 
-export const getApp = async (req: NextApiRequest): Promise<App> => {
+export const getAppByKey = async (req: NextApiRequest): Promise<App> => {
   const header = String(req.headers['x-pickle-key'])
 
   if (!header) {
