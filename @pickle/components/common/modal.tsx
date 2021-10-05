@@ -18,7 +18,7 @@ export const Modal: FunctionComponent<Props> = ({
   if (visible) {
     return createPortal(
       <div
-        className="fixed top-0 bottom-0 left-0 right-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75 lg:p-8"
+        className="fixed top-0 bottom-0 cursor-[zoom-out] left-0 right-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75 lg:p-8"
         onClick={event => {
           if (event.target === event.currentTarget) {
             onClose()
@@ -26,7 +26,7 @@ export const Modal: FunctionComponent<Props> = ({
         }}>
         <div
           className={twMerge(
-            'overflow-hidden bg-white shadow-xl rounded-xl w-full lg:w-96',
+            'bg-white shadow-xl max-h-full overflow-auto rounded-xl w-full cursor-default lg:w-96',
             className
           )}>
           {children}

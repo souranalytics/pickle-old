@@ -27,12 +27,18 @@ export const Layout: FunctionComponent<Props> = ({
     <main className="flex flex-col lg:flex-row dashboard">
       <SideBar />
 
-      <section className="flex flex-col flex-1">
+      <section className="flex flex-col flex-1 lg:max-h-screen">
         <Header loading={loading} title={title}>
           {header}
         </Header>
 
-        <div className={twMerge('flex-1 m-4', className)}>{children}</div>
+        <div
+          className={twMerge(
+            'flex-1 lg:overflow-auto lg:h-full p-4',
+            className
+          )}>
+          {children}
+        </div>
       </section>
     </main>
   </>
