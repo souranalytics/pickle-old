@@ -77,7 +77,7 @@ export const SideBar: FunctionComponent = () => {
 
       <aside
         className={twMerge(
-          'fixed lg:static lg:translate-x-0 top-0 bottom-0 left-0 z-10 flex flex-col text-sm transition-transform transform bg-gray-100 right-1/4 lg:border-r lg:border-gray-200 lg:w-52',
+          'fixed lg:static lg:translate-x-0 top-0 bottom-0 left-0 z-10 flex flex-col text-sm transition-transform transform bg-primary-50 right-1/4 lg:w-52',
           visible ? 'translate-x-0' : '-translate-x-full'
         )}>
         <Link href="/">
@@ -98,10 +98,14 @@ export const SideBar: FunctionComponent = () => {
                 <Link href={url} key={`item-${index}`}>
                   <a
                     className={twMerge(
-                      'flex items-center px-4 py-2 font-medium text-gray-800 hover:bg-gray-200',
-                      (href === ''
-                        ? router.asPath === url
-                        : router.asPath.startsWith(url)) && 'bg-white'
+                      'flex items-center px-4 py-2 font-medium',
+                      (
+                        href === ''
+                          ? router.asPath === url
+                          : router.asPath.startsWith(url)
+                      )
+                        ? 'bg-primary-600 text-white hover:bg-primary-500'
+                        : 'text-gray-800 hover:bg-white'
                     )}>
                     <Icon name={icon} />
                     <span className="ml-2">{label}</span>

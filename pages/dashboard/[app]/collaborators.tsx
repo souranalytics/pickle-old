@@ -6,7 +6,6 @@ import { twMerge } from 'tailwind-merge'
 import { CollaboratorAdd } from '@pickle/components/collaborators/add'
 import { CollaboratorCard } from '@pickle/components/collaborators/card'
 import { Message } from '@pickle/components/common/message'
-import { Spinner } from '@pickle/components/common/spinner'
 import { Layout } from '@pickle/components/dashboard/layout'
 import { getUser } from '@pickle/lib/auth'
 import { CollaboratorsResponse } from '@pickle/types/api'
@@ -23,6 +22,7 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
   return (
     <Layout
       header={<CollaboratorAdd onAdd={mutate} slug={slug} />}
+      loading={isValidating}
       title="Collaborators">
       {error && (
         <Message className={twMerge(data && 'mb-8')} type="error">
@@ -40,8 +40,6 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
           ))}
         </div>
       )}
-
-      {isValidating && <Spinner className={twMerge(data && 'mt-8')} />}
     </Layout>
   )
 }

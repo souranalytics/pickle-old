@@ -15,6 +15,7 @@ import { getUser } from '@pickle/lib/auth'
 const SignUp: NextPage = () => {
   const { error, loading, signUp, success } = useSignUp()
 
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -35,49 +36,60 @@ const SignUp: NextPage = () => {
           </Message>
         )}
 
-        {success && (
+        {success ? (
           <Message className="mt-8" type="success">
             {success}
           </Message>
+        ) : (
+          <Form
+            className="mt-8 lg:w-80"
+            loading={loading}
+            onSubmit={async () => {
+              await signUp(name, email, password)
+
+              setName('')
+              setEmail('')
+              setPassword('')
+            }}>
+            <Input
+              label="What's your name?"
+              onChange={name => setName(name)}
+              placeholder="Name"
+              required
+              type="text"
+              value={name}
+            />
+
+            <Input
+              className="mt-8"
+              label="What's your email?"
+              onChange={email => setEmail(email)}
+              placeholder="Email"
+              required
+              type="email"
+              value={email}
+            />
+
+            <Input
+              className="mt-8"
+              label="Choose a strong password"
+              minLength={12}
+              onChange={password => setPassword(password)}
+              placeholder="Password"
+              required
+              type="password"
+              value={password}
+            />
+
+            <div className="flex items-center mt-8">
+              <Button loading={loading}>Sign up</Button>
+
+              <Link href="/auth/sign-in">
+                <a className="ml-4 font-medium text-black">Have an account?</a>
+              </Link>
+            </div>
+          </Form>
         )}
-
-        <Form
-          className="mt-8 lg:w-80"
-          loading={loading}
-          onSubmit={async () => {
-            await signUp(email, password)
-
-            setEmail('')
-            setPassword('')
-          }}>
-          <Input
-            label="What's your email?"
-            onChange={email => setEmail(email)}
-            placeholder="Email"
-            required
-            type="email"
-            value={email}
-          />
-
-          <Input
-            className="mt-8"
-            label="Choose a strong password"
-            minLength={12}
-            onChange={password => setPassword(password)}
-            placeholder="Password"
-            required
-            type="password"
-            value={password}
-          />
-
-          <div className="flex items-center mt-8">
-            <Button loading={loading}>Sign up</Button>
-
-            <Link href="/auth/sign-in">
-              <a className="ml-4 font-medium text-black">Have an account?</a>
-            </Link>
-          </div>
-        </Form>
       </main>
 
       <Footer />

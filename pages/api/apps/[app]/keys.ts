@@ -1,3 +1,4 @@
+import { Key } from '@prisma/client'
 import { NextApiHandler, NextApiResponse } from 'next'
 import connect from 'next-connect'
 import { z } from 'zod'
@@ -35,7 +36,8 @@ const handler: NextApiHandler = connect(apiOptions)
     })
 
     res.json({
-      keys
+      // TODO: probably rename this?
+      keys: keys as unknown as Array<Key>
     })
   })
   .post(async (req, res: NextApiResponse<KeyResponse>) => {
@@ -60,7 +62,8 @@ const handler: NextApiHandler = connect(apiOptions)
     })
 
     res.json({
-      key
+      // TODO: probably rename this?
+      key: key as unknown as Key
     })
   })
 

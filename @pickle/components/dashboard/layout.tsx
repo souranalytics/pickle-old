@@ -8,6 +8,7 @@ import { SideBar } from './sidebar'
 type Props = {
   className?: string
   header?: JSX.Element
+  loading?: boolean
   title: string
 }
 
@@ -15,6 +16,7 @@ export const Layout: FunctionComponent<Props> = ({
   children,
   className,
   header,
+  loading,
   title
 }) => (
   <>
@@ -22,11 +24,13 @@ export const Layout: FunctionComponent<Props> = ({
       <title>Dashboard: Pickle</title>
     </Head>
 
-    <main className="flex flex-col bg-white lg:flex-row dashboard xl:border-l xl:border-r xl:border-gray-200">
+    <main className="flex flex-col bg-white lg:flex-row dashboard xl:border-l xl:border-r xl:border-primary-100">
       <SideBar />
 
       <section className="flex flex-col flex-1">
-        <Header title={title}>{header}</Header>
+        <Header loading={loading} title={title}>
+          {header}
+        </Header>
 
         <div className={twMerge('flex-1 m-4', className)}>{children}</div>
       </section>

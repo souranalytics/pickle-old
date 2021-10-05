@@ -4,7 +4,6 @@ import useSWR from 'swr'
 import { twMerge } from 'tailwind-merge'
 
 import { Message } from '@pickle/components/common/message'
-import { Spinner } from '@pickle/components/common/spinner'
 import { Layout } from '@pickle/components/dashboard/layout'
 import { KeyAdd } from '@pickle/components/keys/add'
 import { KeyCard } from '@pickle/components/keys/card'
@@ -21,7 +20,10 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
   )
 
   return (
-    <Layout header={<KeyAdd onAdd={mutate} slug={slug} />} title="Keys">
+    <Layout
+      header={<KeyAdd onAdd={mutate} slug={slug} />}
+      loading={isValidating}
+      title="Keys">
       {error && (
         <Message className={twMerge(data && 'mb-8')} type="error">
           {error.message}
@@ -35,8 +37,6 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
           ))}
         </div>
       )}
-
-      {isValidating && <Spinner className={twMerge(data && 'mt-8')} />}
     </Layout>
   )
 }
