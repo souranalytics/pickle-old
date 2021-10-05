@@ -1,37 +1,37 @@
 import { useRouter } from 'next/router'
 import { useCallback, useState } from 'react'
 
-import { supabase } from '@pickle/lib/supabase/client'
+import { request } from '@pickle/lib/request'
+import { AppResponse } from '@pickle/types/api'
 
 type Returns = {
   loading: boolean
   error?: string
 
-  signUp: (email: string, password: string) => Promise<void>
+  createApp: (name: string, planId: string) => Promise<void>
 }
 
-export const useSignIn = (): Returns => {
+export const useNewApp = (): Returns => {
   const router = useRouter()
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string>()
 
-  const signUp = useCallback(
-    async (email: string, password: string) => {
+  const createApp = useCallback(
+    async (name: string, planId: string) => {
       try {
         setLoading(true)
         setError(undefined)
 
-        const { error } = await supabase.auth.signIn({
-          email,
-          password
+        const { app } = await request<AppResponse>('/apps', {
+          data: {
+            name,
+            planId
+          },
+          method: 'post'
         })
 
-        if (error) {
-          throw error
-        }
-
-        router.push('/dashboard')
+        router.push(`/dashboard/${app.slug}`)
       } catch (error) {
         setError(error.message)
       } finally {
@@ -42,8 +42,8 @@ export const useSignIn = (): Returns => {
   )
 
   return {
+    createApp,
     error,
-    loading,
-    signUp
+    loading
   }
 }

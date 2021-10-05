@@ -30,7 +30,7 @@ const Terms: NextPage<Props> = ({ page }) => (
   </>
 )
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const page = await getPage('terms')
 
   if (!page) {

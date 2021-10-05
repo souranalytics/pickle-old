@@ -13,16 +13,21 @@ a {
   @apply text-primary-600 transition-colors;
 }
 
+button,
+select {
+  @apply focus:outline-none;
+}
+
 // layout
 
 #__next {
   @apply flex flex-col min-h-screen max-w-7xl mx-auto;
 
   & > main {
-    @apply flex-1 bg-white rounded-2xl;
+    @apply flex-1;
 
     &:not(.dashboard) {
-      @apply px-8 py-12 lg:py-16;
+      @apply bg-white rounded-2xl p-8 lg:p-16;
     }
   }
 }

@@ -14,7 +14,9 @@ export const PlanCard: FunctionComponent<Props> = ({ className, plan }) => (
   <div
     className={twMerge(
       'flex flex-col items-center rounded-2xl p-8 lg:w-40',
-      plan.id === 'nano'
+      plan.id === 'small'
+        ? 'bg-violet-200'
+        : plan.id === 'nano'
         ? 'bg-indigo-200'
         : plan.id === 'micro'
         ? 'bg-sky-200'

@@ -53,6 +53,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const plans = await prisma.plan.findMany({
     orderBy: {
       price: 'asc'
+    },
+    where: {
+      visible: true
     }
   })
 

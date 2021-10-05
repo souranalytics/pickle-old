@@ -30,7 +30,7 @@ const Privacy: NextPage<Props> = ({ page }) => (
   </>
 )
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const page = await getPage('privacy')
 
   if (!page) {

@@ -32,6 +32,8 @@ const Pickle: NextPage<AppProps> = ({ Component, pageProps }) => {
         fetcher
       }}>
       <Component {...pageProps} />
+
+      <div id="modal" />
     </SWRConfig>
   )
 }

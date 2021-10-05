@@ -41,9 +41,12 @@ model Profile {
   collaborations Collaborator[]
 }
 
+// apps
+
 model App {
   id Int @id @default(autoincrement())
 
+  slug String @unique
   name String
 
   plan   Plan   @relation(fields: [planId], references: [id])
@@ -56,6 +59,7 @@ model App {
   events        Event[]
   keys          Key[]
   screens       Screen[]
+  users         User[]
 }
 
 model Key {
@@ -64,7 +68,7 @@ model Key {
   app   App @relation(fields: [appId], references: [id])
   appId Int
 
-  key String
+  key String @default(uuid())
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -85,6 +89,8 @@ model Collaborator {
   updatedAt DateTime @updatedAt
 }
 
+// data
+
 model Event {
   id Int @id @default(autoincrement())
 
@@ -95,7 +101,6 @@ model Event {
   data Json
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model Screen {
@@ -105,6 +110,17 @@ model Screen {
   appId Int
 
   name String
+  data Json
+
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id String @id
+
+  app   App @relation(fields: [appId], references: [id])
+  appId Int
+
   data Json
 
   createdAt DateTime @default(now())

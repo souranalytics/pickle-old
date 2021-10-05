@@ -15,6 +15,7 @@ type Props = {
 
 export const Header: FunctionComponent<Props> = ({ className }) => {
   const router = useRouter()
+
   const [session, setSession] = useState<Session | null>()
 
   useEffect(() => {
@@ -46,8 +47,8 @@ export const Header: FunctionComponent<Props> = ({ className }) => {
         <NavLink href="/docs">Docs</NavLink>
         {session ? (
           <>
-            <NavLink hero href="/apps">
-              Apps
+            <NavLink hero href="/dashboard">
+              Dashboard
             </NavLink>
             <NavLink href="/profile">Profile</NavLink>
             <NavLink
