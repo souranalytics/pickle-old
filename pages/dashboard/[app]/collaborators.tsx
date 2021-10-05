@@ -21,7 +21,7 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
 
   return (
     <Layout
-      header={<CollaboratorAdd onAdd={mutate} slug={slug} />}
+      header={<CollaboratorAdd className="m-4" onAdd={mutate} slug={slug} />}
       loading={isValidating}
       title="Collaborators">
       {error && (

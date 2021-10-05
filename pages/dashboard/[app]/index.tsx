@@ -37,7 +37,7 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
     <Layout
       header={
         <Picker
-          className="text-sm"
+          className="m-4 text-sm"
           data={intervals}
           direction="right"
           onChange={interval =>

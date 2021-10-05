@@ -21,7 +21,7 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
 
   return (
     <Layout
-      header={<KeyAdd onAdd={mutate} slug={slug} />}
+      header={<KeyAdd className="m-4" onAdd={mutate} slug={slug} />}
       loading={isValidating}
       title="Keys">
       {error && (
