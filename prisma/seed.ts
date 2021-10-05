@@ -69,7 +69,9 @@ const main = async () => {
         }
       },
       keys: {
-        create: {}
+        create: {
+          name: 'Test'
+        }
       },
       name: 'Test',
       plan: {
@@ -81,31 +83,47 @@ const main = async () => {
     }
   })
 
-  await prisma.event.createMany({
-    data: range(10000).map(() => ({
+  const userIds = range(2000).map(() => chance().guid())
+
+  await prisma.user.createMany({
+    data: userIds.map(id => ({
+      anonymousId: id,
       appId: app.id,
       createdAt: getDate(subDays(new Date(), 30), new Date()),
       data: {},
-      name: sample(['sign_in', 'sign_out', 'sign_up']) as string
+      id: id,
+      meta: {}
     }))
+  })
+
+  await prisma.event.createMany({
+    data: range(10000).map(() => {
+      const id = sample(userIds) as string
+
+      return {
+        appId: app.id,
+        createdAt: getDate(subDays(new Date(), 30), new Date()),
+        data: {},
+        meta: {},
+        name: sample(['sign_in', 'sign_up', 'sign_out']) as string,
+        userId: id
+      }
+    })
   })
 
   await prisma.screen.createMany({
-    data: range(5000).map(() => ({
-      appId: app.id,
-      createdAt: getDate(subDays(new Date(), 30), new Date()),
-      data: {},
-      name: sample(['sign_in', 'sign_up', 'profile']) as string
-    }))
-  })
+    data: range(5000).map(() => {
+      const id = sample(userIds) as string
 
-  await prisma.user.createMany({
-    data: range(2000).map(() => ({
-      appId: app.id,
-      createdAt: getDate(subDays(new Date(), 30), new Date()),
-      data: {},
-      id: chance().guid()
-    }))
+      return {
+        appId: app.id,
+        createdAt: getDate(subDays(new Date(), 30), new Date()),
+        data: {},
+        meta: {},
+        name: sample(['Sign in', 'Sign up', 'Home', 'Profile']) as string,
+        userId: id
+      }
+    })
   })
 }
 

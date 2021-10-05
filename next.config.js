@@ -3,5 +3,13 @@ module.exports = {
   images: {
     domains: ['kousttopufrewjfhpsmg.supabase.in']
   },
-  reactStrictMode: true
+  reactStrictMode: true,
+  async rewrites() {
+    return [
+      {
+        destination: '/api/users',
+        source: '/api/identify'
+      }
+    ]
+  }
 }

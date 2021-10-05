@@ -63,12 +63,12 @@ model App {
 }
 
 model Key {
-  id Int @id @default(autoincrement())
+  id String @unique @default(uuid())
 
   app   App @relation(fields: [appId], references: [id])
   appId Int
 
-  key String @default(uuid())
+  name String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -97,8 +97,10 @@ model Event {
   app   App @relation(fields: [appId], references: [id])
   appId Int
 
-  name String
-  data Json
+  userId String
+  name   String
+  data   Json
+  meta   Json
 
   createdAt DateTime @default(now())
 }
@@ -109,8 +111,10 @@ model Screen {
   app   App @relation(fields: [appId], references: [id])
   appId Int
 
-  name String
-  data Json
+  userId String
+  name   String
+  data   Json
+  meta   Json
 
   createdAt DateTime @default(now())
 }
@@ -121,7 +125,9 @@ model User {
   app   App @relation(fields: [appId], references: [id])
   appId Int
 
-  data Json
+  anonymousId String
+  data        Json
+  meta        Json
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
