@@ -22,7 +22,7 @@ export const Layout: FunctionComponent<Props> = ({
       <title>Dashboard: Pickle</title>
     </Head>
 
-    <main className="flex bg-white dashboard">
+    <main className="flex flex-col bg-white lg:flex-row dashboard xl:border-l xl:border-r xl:border-gray-200">
       <SideBar />
 
       <section className="flex flex-col flex-1">

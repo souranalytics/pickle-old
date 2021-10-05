@@ -1,10 +1,7 @@
-import {
-  CheckCircleIcon,
-  ExclamationCircleIcon,
-  InformationCircleIcon
-} from '@heroicons/react/solid'
 import React, { FunctionComponent } from 'react'
 import { twMerge } from 'tailwind-merge'
+
+import { Icon } from './icon'
 
 type Props = {
   className?: string
@@ -26,13 +23,19 @@ export const Message: FunctionComponent<Props> = ({
         : 'bg-sky-100',
       className
     )}>
-    {type === 'error' ? (
-      <ExclamationCircleIcon className="w-6 h-6 text-rose-600" />
-    ) : type === 'success' ? (
-      <CheckCircleIcon className="w-6 h-6 text-emerald-600" />
-    ) : (
-      <InformationCircleIcon className="w-6 h-6 text-sky-600" />
-    )}
+    <Icon
+      className={
+        type === 'error'
+          ? 'text-rose-600'
+          : type === 'success'
+          ? 'text-emerald-600'
+          : 'text-sky-600'
+      }
+      name={
+        type === 'error' ? 'error' : type === 'success' ? 'success' : 'info'
+      }
+      size={24}
+    />
 
     <div className="flex-1 ml-3">{children}</div>
   </div>

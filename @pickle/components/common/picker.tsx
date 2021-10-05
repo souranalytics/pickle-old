@@ -1,6 +1,7 @@
-import { ChevronDownIcon } from '@heroicons/react/outline'
 import React, { FunctionComponent, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
+
+import { Icon } from './icon'
 
 type Props = {
   className?: string
@@ -36,11 +37,12 @@ export const Picker: FunctionComponent<Props> = ({
           {item?.label ?? placeholder}
         </span>
 
-        <ChevronDownIcon
+        <Icon
           className={twMerge(
-            'w-4 h-4 ml-2 transition-transform',
+            'ml-2 transition-transform',
             visible && 'rotate-180'
           )}
+          name="expand"
         />
       </button>
 

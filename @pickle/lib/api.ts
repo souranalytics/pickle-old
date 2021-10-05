@@ -1,4 +1,4 @@
-import { App } from '@prisma/client'
+import { App, CollaboratorRole } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Options } from 'next-connect'
 import { ZodSchema } from 'zod'
@@ -26,6 +26,32 @@ export const getUser = async (req: NextApiRequest): Promise<User> => {
   }
 
   return user
+}
+
+export const getApp = async (
+  user: User,
+  slug: string,
+  role?: CollaboratorRole
+): Promise<App> => {
+  const app = await prisma.app.findFirst({
+    where: {
+      collaborators: {
+        some: {
+          profile: {
+            id: user.id
+          },
+          role
+        }
+      },
+      slug
+    }
+  })
+
+  if (!app) {
+    throw apiError(404, 'App not found')
+  }
+
+  return app
 }
 
 export const getAppByKey = async (req: NextApiRequest): Promise<App> => {

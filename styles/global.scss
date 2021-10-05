@@ -35,5 +35,13 @@ select {
 // components
 
 .button {
-  @apply bg-primary-600 px-5 py-3 rounded-xl font-semibold transition-colors hover:bg-accent-600 active:bg-accent-700 text-white whitespace-nowrap;
+  @apply bg-primary-600 font-semibold transition-colors hover:bg-accent-600 active:bg-accent-700 text-white whitespace-nowrap;
+
+  &:not(.small) {
+    @apply rounded-xl px-5 py-3;
+  }
+
+  &.small {
+    @apply rounded-lg px-3 py-2;
+  }
 }

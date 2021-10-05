@@ -52,6 +52,11 @@ const handler: NextApiHandler = connect(apiOptions)
             role: 'owner'
           }
         },
+        keys: {
+          create: {
+            name: 'Default'
+          }
+        },
         name: data.name,
         plan: {
           connect: {

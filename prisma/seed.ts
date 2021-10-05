@@ -14,6 +14,7 @@ const main = async () => {
   await prisma.plan.createMany({
     data: [
       {
+        collaborators: 1,
         events: 10_000,
         id: 'free',
         name: 'Free',
@@ -22,6 +23,7 @@ const main = async () => {
         visible: true
       },
       {
+        collaborators: 3,
         events: 100_000,
         id: 'nano',
         name: 'Nano',
@@ -30,6 +32,7 @@ const main = async () => {
         visible: true
       },
       {
+        collaborators: 5,
         events: 500_000,
         id: 'micro',
         name: 'Micro',
@@ -38,6 +41,7 @@ const main = async () => {
         visible: true
       },
       {
+        collaborators: 10,
         events: 1_000_000,
         id: 'small',
         name: 'Small',

@@ -26,7 +26,7 @@ export const Modal: FunctionComponent<Props> = ({
         }}>
         <div
           className={twMerge(
-            'overflow-hidden bg-white shadow-xl rounded-xl',
+            'overflow-hidden bg-white shadow-xl rounded-xl w-full lg:w-96',
             className
           )}>
           {children}

@@ -1,5 +1,13 @@
 import type { Serie } from '@nivo/line'
-import { App, Event, Plan, Profile, Screen, User } from '@prisma/client'
+import {
+  App,
+  Collaborator,
+  Event,
+  Plan,
+  Profile,
+  Screen,
+  User
+} from '@prisma/client'
 
 export type ApiError = {
   code: number
@@ -24,6 +32,20 @@ export type AppsResponse = {
 
 export type AppResponse = {
   app: App
+}
+
+export type CollaboratorsResponse = {
+  collaborators: Array<
+    Collaborator & {
+      profile: Profile
+    }
+  >
+}
+
+export type CollaboratorResponse = {
+  collaborator: Collaborator & {
+    profile: Profile
+  }
 }
 
 export type EventResponse = {

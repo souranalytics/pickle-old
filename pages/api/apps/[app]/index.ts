@@ -2,23 +2,22 @@ import { NextApiHandler, NextApiResponse } from 'next'
 import connect from 'next-connect'
 import { z } from 'zod'
 
-import { apiOptions, getUser, validateData } from '@pickle/lib/api'
-import { apiError } from '@pickle/lib/error'
+import { apiOptions, getApp, getUser, validateData } from '@pickle/lib/api'
 import { prisma } from '@pickle/lib/prisma'
 import { AppResponse } from '@pickle/types/api'
 
 const schemaGet = z.object({
-  app: z.number()
+  app: z.string()
 })
 
 const schemaPut = z.object({
-  app: z.number(),
+  app: z.string(),
   name: z.string(),
   planId: z.string().optional()
 })
 
 const schemaDelete = z.object({
-  app: z.number()
+  app: z.string()
 })
 
 const handler: NextApiHandler = connect(apiOptions)
@@ -27,22 +26,7 @@ const handler: NextApiHandler = connect(apiOptions)
 
     const data = validateData(schemaGet, req.query)
 
-    const app = await prisma.app.findFirst({
-      where: {
-        collaborators: {
-          some: {
-            profile: {
-              id: user.id
-            }
-          }
-        },
-        id: data.app
-      }
-    })
-
-    if (!app) {
-      throw apiError(404, 'App not found')
-    }
+    const app = await getApp(user, data.app)
 
     res.json({
       app
@@ -53,23 +37,7 @@ const handler: NextApiHandler = connect(apiOptions)
 
     const data = validateData(schemaPut, req.query)
 
-    const app = await prisma.app.findFirst({
-      where: {
-        collaborators: {
-          some: {
-            profile: {
-              id: user.id
-            },
-            role: 'owner'
-          }
-        },
-        id: data.app
-      }
-    })
-
-    if (!app) {
-      throw apiError(404, 'App not found')
-    }
+    const app = await getApp(user, data.app, 'owner')
 
     if (!data.planId && data.name === app.name) {
       return res.json({
@@ -100,23 +68,7 @@ const handler: NextApiHandler = connect(apiOptions)
 
     const data = validateData(schemaDelete, req.query)
 
-    const app = await prisma.app.findFirst({
-      where: {
-        collaborators: {
-          some: {
-            profile: {
-              id: user.id
-            },
-            role: 'owner'
-          }
-        },
-        id: data.app
-      }
-    })
-
-    if (!app) {
-      throw apiError(404, 'App not found')
-    }
+    const app = await getApp(user, data.app, 'owner')
 
     const next = await prisma.app.delete({
       where: {

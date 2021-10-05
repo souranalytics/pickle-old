@@ -1,4 +1,3 @@
-import { UserCircleIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { FunctionComponent } from 'react'
@@ -7,6 +6,8 @@ import { twMerge } from 'tailwind-merge'
 
 import { supabase } from '@pickle/lib/supabase/client'
 import { ProfileResponse } from '@pickle/types/api'
+
+import { Icon } from '../common/icon'
 
 type Props = {
   className?: string
@@ -22,7 +23,7 @@ export const AuthCard: FunctionComponent<Props> = ({ className }) => {
       {data ? (
         <Link href="/profile">
           <a className="flex items-center px-4 py-2 font-medium hover:bg-white">
-            <UserCircleIcon className="w-4 h-4" />
+            <Icon name="profile" />
             <span className="ml-2">{data?.profile?.name}</span>
           </a>
         </Link>
