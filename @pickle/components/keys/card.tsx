@@ -18,8 +18,8 @@ export const KeyCard: FunctionComponent<Props> = ({ className, data }) => {
       )}>
       <div className="flex-1 font-medium">{data.name}</div>
 
-      <button className="ml-4">
-        <Icon className="text-rose-600" name="trash" size={16} />
+      <button className="ml-4 text-rose-600">
+        <Icon name="trash" size={16} />
       </button>
     </div>
   )
