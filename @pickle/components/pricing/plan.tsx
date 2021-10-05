@@ -15,13 +15,13 @@ export const PlanCard: FunctionComponent<Props> = ({ className, plan }) => (
   <div
     className={twMerge(
       'flex flex-col items-center rounded-2xl p-8 bg-gradient-to-tr',
-      plan.id === 'nano'
+      plan.id === 'free'
         ? 'from-accent-100 to-accent-300'
-        : plan.id === 'micro'
+        : plan.id === 'nano'
         ? 'from-primary-100 to-primary-300'
-        : plan.id === 'small'
-        ? 'from-accent-100 to-accent-300'
-        : 'from-primary-100 to-primary-300',
+        : plan.id === 'micro'
+        ? 'from-accent-200 to-accent-400'
+        : 'from-primary-200 to-primary-400',
       className
     )}>
     <div className="text-xl font-medium">{plan.name}</div>
