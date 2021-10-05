@@ -38,11 +38,9 @@ export const PlanCard: FunctionComponent<Props> = ({ className, plan }) => (
     </div>
 
     <div className="mt-4 font-mono text-2xl font-medium">
-      {millify(plan.screens)}
+      {millify(plan.views)}
     </div>
-    <div className="text-sm text-gray-600">
-      {pluralize('screen', plan.screens)}
-    </div>
+    <div className="text-sm text-gray-600">{pluralize('view', plan.views)}</div>
 
     <div className="mt-4 font-mono text-2xl font-medium">
       {plan.collaborators}

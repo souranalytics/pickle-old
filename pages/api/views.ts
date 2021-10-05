@@ -11,7 +11,7 @@ import {
 } from '@pickle/lib/api'
 import { prisma } from '@pickle/lib/prisma'
 import { zodJson } from '@pickle/lib/zod'
-import { ScreenResponse, ScreensResponse } from '@pickle/types/api'
+import { ViewResponse, ViewsResponse } from '@pickle/types/api'
 
 const schemaGet = z.object({
   after: z.number().optional(),
@@ -26,14 +26,14 @@ const schemaPost = z.object({
 })
 
 const handler: NextApiHandler = connect(apiOptions)
-  .get(async (req, res: NextApiResponse<ScreensResponse>) => {
+  .get(async (req, res: NextApiResponse<ViewsResponse>) => {
     const user = await getUser(req)
 
     const { after, slug } = validateData(schemaGet, req.query)
 
     const app = await getApp(user, slug)
 
-    const screens = await prisma.screen.findMany({
+    const views = await prisma.view.findMany({
       cursor: after
         ? {
             id: after
@@ -52,15 +52,15 @@ const handler: NextApiHandler = connect(apiOptions)
     })
 
     res.json({
-      screens
+      views
     })
   })
-  .post(async (req, res: NextApiResponse<ScreenResponse>) => {
+  .post(async (req, res: NextApiResponse<ViewResponse>) => {
     const app = await getAppByKey(req)
 
     const { data, meta, name, userId } = validateData(schemaPost, req.body)
 
-    const screen = await prisma.screen.create({
+    const view = await prisma.view.create({
       data: {
         app: {
           connect: {
@@ -75,7 +75,7 @@ const handler: NextApiHandler = connect(apiOptions)
     })
 
     res.json({
-      screen
+      view
     })
   })
 

@@ -48,9 +48,9 @@ export const SideBar: FunctionComponent = () => {
         label: 'Events'
       },
       {
-        href: 'screens',
+        href: 'views',
         icon: 'devices',
-        label: 'Screens'
+        label: 'Views'
       },
       {
         href: 'users',

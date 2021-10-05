@@ -21,7 +21,7 @@ model Plan {
 
   name          String
   events        Int
-  screens       Int
+  views         Int
   price         Float
   collaborators Int
 
@@ -59,8 +59,8 @@ model App {
   collaborators Collaborator[]
   events        Event[]
   keys          Key[]
-  screens       Screen[]
   users         User[]
+  views         View[]
 }
 
 model Key {
@@ -106,7 +106,7 @@ model Event {
   createdAt DateTime @default(now())
 }
 
-model Screen {
+model View {
   id Int @id @default(autoincrement())
 
   app   App @relation(fields: [appId], references: [id])

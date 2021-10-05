@@ -8,9 +8,9 @@ import { twMerge } from 'tailwind-merge'
 import { Icon } from '@pickle/components/common/icon'
 import { Message } from '@pickle/components/common/message'
 import { Layout } from '@pickle/components/dashboard/layout'
-import { ScreenCard } from '@pickle/components/screens/card'
+import { ViewCard } from '@pickle/components/views/card'
 import { getUser } from '@pickle/lib/auth'
-import { ScreensResponse } from '@pickle/types/api'
+import { ViewsResponse } from '@pickle/types/api'
 
 type Props = {
   slug: string
@@ -19,11 +19,11 @@ type Props = {
 const Dashboard: NextPage<Props> = ({ slug }) => {
   const router = useRouter()
 
-  const url = compact([`/screens?slug=${slug}`, router.query.after]).join(
+  const url = compact([`/views?slug=${slug}`, router.query.after]).join(
     '&after='
   )
 
-  const { data, error, isValidating } = useSWR<ScreensResponse>(url)
+  const { data, error, isValidating } = useSWR<ViewsResponse>(url)
 
   return (
     <Layout
@@ -35,7 +35,7 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
         )
       }
       loading={isValidating}
-      title="Screens">
+      title="Views">
       {error && (
         <Message className={twMerge(data && 'mb-8')} type="error">
           {error.message}
@@ -53,8 +53,8 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
           </thead>
 
           <tbody className="font-mono text-sm">
-            {data.screens.map(screen => (
-              <ScreenCard key={screen.id} screen={screen} />
+            {data.views.map(view => (
+              <ViewCard key={view.id} view={view} />
             ))}
           </tbody>
         </table>

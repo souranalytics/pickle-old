@@ -30,7 +30,7 @@ export const Chart: FunctionComponent<Props> = ({
   )
 
   const color =
-    type === 'event' ? '#0284c7' : type === 'screen' ? '#4f46e5' : '#9333ea'
+    type === 'event' ? '#0284c7' : type === 'view' ? '#4f46e5' : '#9333ea'
 
   return (
     <div

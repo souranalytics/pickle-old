@@ -6,8 +6,8 @@ import {
   Key,
   Plan,
   Profile,
-  Screen,
-  User
+  User,
+  View
 } from '@prisma/client'
 
 export type ApiError = {
@@ -65,12 +65,12 @@ export type EventResponse = {
   event: Event
 }
 
-export type ScreensResponse = {
-  screens: Array<Screen>
+export type ViewsResponse = {
+  views: Array<View>
 }
 
-export type ScreenResponse = {
-  screen: Screen
+export type ViewResponse = {
+  view: View
 }
 
 export type UsersResponse = {

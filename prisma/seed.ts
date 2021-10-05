@@ -19,7 +19,7 @@ const main = async () => {
         id: 'free',
         name: 'Free',
         price: 0,
-        screens: 5_000,
+        views: 5_000,
         visible: true
       },
       {
@@ -28,7 +28,7 @@ const main = async () => {
         id: 'nano',
         name: 'Nano',
         price: 10,
-        screens: 50_000,
+        views: 50_000,
         visible: true
       },
       {
@@ -37,7 +37,7 @@ const main = async () => {
         id: 'micro',
         name: 'Micro',
         price: 30,
-        screens: 250_000,
+        views: 250_000,
         visible: true
       },
       {
@@ -46,7 +46,7 @@ const main = async () => {
         id: 'small',
         name: 'Small',
         price: 50,
-        screens: 500_000,
+        views: 500_000,
         visible: true
       }
     ]
@@ -115,7 +115,7 @@ const main = async () => {
     })
   })
 
-  await prisma.screen.createMany({
+  await prisma.view.createMany({
     data: range(5000).map(() => {
       const id = sample(userIds) as string
 

@@ -1,6 +1,6 @@
 export enum DashboardType {
   event = 'event',
-  screen = 'screen',
+  view = 'view',
   user = 'user'
 }
 
