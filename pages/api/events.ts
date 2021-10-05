@@ -2,10 +2,21 @@ import { NextApiHandler, NextApiResponse } from 'next'
 import connect from 'next-connect'
 import { z } from 'zod'
 
-import { apiOptions, getAppByKey, validateData } from '@pickle/lib/api'
+import {
+  apiOptions,
+  getApp,
+  getAppByKey,
+  getUser,
+  validateData
+} from '@pickle/lib/api'
 import { prisma } from '@pickle/lib/prisma'
 import { zodJson } from '@pickle/lib/zod'
-import { EventResponse } from '@pickle/types/api'
+import { EventResponse, EventsResponse } from '@pickle/types/api'
+
+const schemaGet = z.object({
+  after: z.number().optional(),
+  slug: z.string()
+})
 
 const schemaPost = z.object({
   data: zodJson,
@@ -14,8 +25,37 @@ const schemaPost = z.object({
   userId: z.string()
 })
 
-const handler: NextApiHandler = connect(apiOptions).post(
-  async (req, res: NextApiResponse<EventResponse>) => {
+const handler: NextApiHandler = connect(apiOptions)
+  .get(async (req, res: NextApiResponse<EventsResponse>) => {
+    const user = await getUser(req)
+
+    const { after, slug } = validateData(schemaGet, req.query)
+
+    const app = await getApp(user, slug)
+
+    const events = await prisma.event.findMany({
+      cursor: after
+        ? {
+            id: after
+          }
+        : undefined,
+      orderBy: {
+        createdAt: 'desc'
+      },
+      skip: after ? 1 : undefined,
+      take: 100,
+      where: {
+        app: {
+          id: app.id
+        }
+      }
+    })
+
+    res.json({
+      events
+    })
+  })
+  .post(async (req, res: NextApiResponse<EventResponse>) => {
     const app = await getAppByKey(req)
 
     const { data, meta, name, userId } = validateData(schemaPost, req.body)
@@ -37,7 +77,6 @@ const handler: NextApiHandler = connect(apiOptions).post(
     res.json({
       event
     })
-  }
-)
+  })
 
 export default handler

@@ -57,12 +57,24 @@ export type KeyResponse = {
   key: Key
 }
 
+export type EventsResponse = {
+  events: Array<Event>
+}
+
 export type EventResponse = {
   event: Event
 }
 
+export type ScreensResponse = {
+  screens: Array<Screen>
+}
+
 export type ScreenResponse = {
   screen: Screen
+}
+
+export type UsersResponse = {
+  users: Array<User>
 }
 
 export type UserResponse = {
