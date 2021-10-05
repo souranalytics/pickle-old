@@ -21,6 +21,7 @@
     "@prisma/client": "3.1.1",
     "@supabase/supabase-js": "^1.24.0",
     "axios": "^0.22.0",
+    "boring-avatars": "^1.5.8",
     "date-fns": "^2.24.0",
     "graphql": "^15.6.0",
     "graphql-request": "^3.5.0",
