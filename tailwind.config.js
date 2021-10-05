@@ -13,8 +13,8 @@ module.exports = {
     colors,
     extend: {
       colors: {
-        accent: colors.violet,
-        primary: colors.indigo
+        accent: colors.lime,
+        primary: colors.emerald
       }
     },
     fontFamily: {

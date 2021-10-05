@@ -21,27 +21,22 @@ const Pricing: NextPage<Props> = ({ plans }) => (
 
     <Header />
 
-    <main>
+    <main className="flex flex-col items-center justify-center">
       <section className="text-center">
         <h1 className="text-6xl font-bold">Pricing</h1>
-        <p className="mt-4 text-2xl font-medium">Simple, transparent pricing</p>
-        <p className="mt-8 text-lg">
-          Free to use during the{' '}
-          <Link href="https://supabase.io/blog/2021/09/28/supabase-hacktoberfest-hackathon-2021">
-            <a>Supabase hackathon</a>
-          </Link>
-          .
-        </p>
+        <p className="mt-4 text-2xl font-medium">Simple and transparent </p>
       </section>
 
-      <section className="flex flex-col mt-8 lg:justify-center lg:flex-row lg:mt-16">
+      <section className="grid grid-cols-2 gap-8 mt-8 lg:grid-cols-4 lg:mt-16">
         {plans.map(plan => (
-          <PlanCard
-            className="mt-8 lg:mt-0 lg:ml-16 first:mt-0 lg:first:ml-0"
-            key={plan.id}
-            plan={plan}
-          />
+          <PlanCard key={plan.id} plan={plan} />
         ))}
+      </section>
+
+      <section className="flex justify-center mt-8 lg:mt-16">
+        <Link href="/auth/sign-up">
+          <a className="text-xl !rounded-full button">Get started for free</a>
+        </Link>
       </section>
     </main>
 

@@ -3,11 +3,7 @@ import { useRouter } from 'next/router'
 import React, { FunctionComponent } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-type Props = {
-  className?: string
-}
-
-export const Footer: FunctionComponent<Props> = ({ className }) => {
+export const Footer: FunctionComponent = () => {
   const router = useRouter()
 
   const links = [
@@ -48,11 +44,7 @@ export const Footer: FunctionComponent<Props> = ({ className }) => {
   ]
 
   return (
-    <footer
-      className={twMerge(
-        'flex flex-col lg:flex-row lg:justify-between text-sm text-gray-600 m-4 lg:m-8',
-        className
-      )}>
+    <footer className="flex flex-col p-4 text-sm text-gray-600 lg:flex-row lg:justify-between lg:p-8">
       <div>&#169; {new Date().getFullYear()} / Pickle</div>
 
       <div className="grid grid-cols-2 gap-4 mt-4 lg:mt-0 lg:gap-8">

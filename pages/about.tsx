@@ -20,7 +20,7 @@ const About: NextPage<Props> = ({ page }) => (
 
     <Header />
 
-    <main>
+    <main className="flex flex-col items-center justify-center text-center">
       <h1 className="text-6xl font-bold">{page.title}</h1>
 
       <Markdown className="mt-8 text-xl">{page.content}</Markdown>

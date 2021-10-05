@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-import { Icon } from './icon'
+import { ExpandIcon } from './icon'
 
 type Props = {
   className?: string
@@ -37,13 +37,7 @@ export const Picker: FunctionComponent<Props> = ({
           {item?.label ?? placeholder}
         </span>
 
-        <Icon
-          className={twMerge(
-            'ml-2 transition-transform',
-            visible && 'rotate-180'
-          )}
-          name="expand"
-        />
+        <ExpandIcon className="ml-2" open={visible} size={16} />
       </button>
 
       <div

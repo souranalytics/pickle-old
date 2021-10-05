@@ -68,7 +68,7 @@ const SignIn: NextPage = () => {
               {data.plans.map(plan => (
                 <button
                   className={twMerge(
-                    'flex flex-col items-center p-3 ml-4 first:ml-0',
+                    'flex flex-col items-center p-3 ml-4 first:ml-0 transition',
                     plan.id === planId
                       ? 'bg-primary-600 text-white rounded-xl'
                       : 'bg-primary-200 rounded-lg'

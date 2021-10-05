@@ -14,14 +14,14 @@ type Props = {
 export const PlanCard: FunctionComponent<Props> = ({ className, plan }) => (
   <div
     className={twMerge(
-      'flex flex-col items-center rounded-2xl p-8 lg:w-40',
-      plan.id === 'small'
-        ? 'bg-violet-200'
-        : plan.id === 'nano'
-        ? 'bg-indigo-200'
+      'flex flex-col items-center rounded-2xl p-8 bg-gradient-to-tr',
+      plan.id === 'nano'
+        ? 'from-accent-100 to-accent-300'
         : plan.id === 'micro'
-        ? 'bg-sky-200'
-        : 'bg-teal-200',
+        ? 'from-primary-100 to-primary-300'
+        : plan.id === 'small'
+        ? 'from-accent-100 to-accent-300'
+        : 'from-primary-100 to-primary-300',
       className
     )}>
     <div className="text-xl font-medium">{plan.name}</div>

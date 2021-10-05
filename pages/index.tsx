@@ -15,29 +15,25 @@ const Home: NextPage = () => (
 
     <Header />
 
-    <main>
-      <section className="flex flex-col lg:flex-row-reverse lg:justify-between lg:items-center">
-        <div className="self-center">
-          <Image
-            alt="Pickle"
-            height={2500 / 5}
-            src="https://kousttopufrewjfhpsmg.supabase.in/storage/v1/object/public/hero/pickle.png"
-            width={2500 / 5}
-          />
+    <main className="flex flex-col items-center lg:flex-row-reverse lg:justify-between">
+      <Image
+        alt="Pickle"
+        height={2500 / 5}
+        src="https://kousttopufrewjfhpsmg.supabase.in/storage/v1/object/public/hero/pickle.png"
+        width={2500 / 5}
+      />
+
+      <section className="flex flex-col items-center mt-16 text-center lg:items-start lg:text-left lg:mt-0">
+        <h1 className="text-6xl font-bold">Pickle</h1>
+        <div className="mt-4 text-4xl font-medium text-gray-800">
+          Privacy and developer first analytics
         </div>
 
-        <div className="flex flex-col items-start mt-16 lg:mt-0">
-          <h1 className="text-6xl font-bold">Pickle</h1>
-          <div className="mt-4 text-4xl font-medium text-gray-800">
-            Privacy and developer first analytics
-          </div>
-
-          <Link href="/auth/sign-up">
-            <a className="mt-8 text-xl !rounded-full button">
-              Get started for free
-            </a>
-          </Link>
-        </div>
+        <Link href="/auth/sign-up">
+          <a className="mt-8 text-xl !rounded-full button">
+            Get started for free
+          </a>
+        </Link>
       </section>
     </main>
 

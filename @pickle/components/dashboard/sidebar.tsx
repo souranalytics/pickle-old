@@ -6,7 +6,7 @@ import { twMerge } from 'tailwind-merge'
 
 import { SideBarLinks } from '@pickle/types/components'
 
-import { Icon } from '../common/icon'
+import { Icon, MenuIcon } from '../common/icon'
 import { Logo } from '../common/logo'
 import { AuthCard } from './auth'
 import { AppPicker } from './picker'
@@ -33,7 +33,7 @@ export const SideBar: FunctionComponent = () => {
       {
         href: 'keys',
         icon: 'key',
-        label: 'Keys'
+        label: 'API keys'
       },
       {
         href: 'settings',
@@ -49,7 +49,7 @@ export const SideBar: FunctionComponent = () => {
       },
       {
         href: 'screens',
-        icon: 'mobile',
+        icon: 'devices',
         label: 'Screens'
       },
       {
@@ -72,12 +72,12 @@ export const SideBar: FunctionComponent = () => {
       <button
         className="fixed z-20 p-3 text-white rounded-full bg-primary-600 lg:hidden bottom-4 right-4"
         onClick={() => setVisible(!visible)}>
-        <Icon name={visible ? 'close' : 'menu'} size={24} />
+        <MenuIcon open={visible} />
       </button>
 
       <aside
         className={twMerge(
-          'fixed lg:static lg:translate-x-0 top-0 bottom-0 left-0 z-10 flex flex-col text-sm transition-transform transform bg-primary-50 right-1/4 lg:w-52',
+          'fixed bg-white lg:static lg:translate-x-0 top-0 bottom-0 left-0 z-10 flex flex-col text-sm transition-transform transform right-1/4 lg:border-r lg:border-gray-200 lg:w-52',
           visible ? 'translate-x-0' : '-translate-x-full'
         )}>
         <Link href="/">
@@ -91,6 +91,8 @@ export const SideBar: FunctionComponent = () => {
         {links.map((links, index) => (
           <div className="mt-4" key={`section-${index}`}>
             {links.map(({ href, icon, label }, index) => {
+              const [path] = router.asPath.split('?')
+
               const base = `/dashboard/${slug}`
               const url = compact([base, href]).join('/')
 
@@ -98,16 +100,12 @@ export const SideBar: FunctionComponent = () => {
                 <Link href={url} key={`item-${index}`}>
                   <a
                     className={twMerge(
-                      'flex items-center px-4 py-2 font-medium',
-                      (
-                        href === ''
-                          ? router.asPath === url
-                          : router.asPath.startsWith(url)
-                      )
-                        ? 'bg-primary-600 text-white hover:bg-primary-500'
-                        : 'text-gray-800 hover:bg-white'
+                      'flex items-center px-4 py-2 font-medium hover:bg-primary-50',
+                      (href === '' ? path === url : path.startsWith(url))
+                        ? 'text-primary-600 font-semibold'
+                        : 'text-gray-600'
                     )}>
-                    <Icon name={icon} />
+                    <Icon name={icon} size={16} />
                     <span className="ml-2">{label}</span>
                   </a>
                 </Link>
