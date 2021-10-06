@@ -29,9 +29,19 @@ export const UserCard: FunctionComponent<Props> = ({ user }) => {
         className="p-4 text-sm"
         onClose={() => setVisible(false)}
         visible={visible}>
-        <div className="font-medium text-gray-600">Id</div>
+        <div className="font-medium text-gray-600">ID</div>
         <div className="p-3 mt-2 overflow-auto font-mono bg-gray-100 rounded-lg">
           {user.id}
+        </div>
+
+        <div className="mt-4 font-medium text-gray-600">Created</div>
+        <div className="mt-2 overflow-auto">
+          {format(parseISO(user.createdAt as unknown as string), 'PPpp')}
+        </div>
+
+        <div className="mt-4 font-medium text-gray-600">Updated</div>
+        <div className="mt-2 overflow-auto">
+          {format(parseISO(user.updatedAt as unknown as string), 'PPpp')}
         </div>
 
         <div className="mt-4 font-medium text-gray-600">Data</div>

@@ -46,7 +46,7 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
         <table>
           <thead>
             <tr>
-              <th>Id</th>
+              <th>ID</th>
               <th>Created</th>
               <th colSpan={2}>Updated</th>
             </tr>

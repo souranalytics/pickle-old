@@ -34,6 +34,11 @@ export const ViewCard: FunctionComponent<Props> = ({ view }) => {
           {view.name}
         </div>
 
+        <div className="mt-4 font-medium text-gray-600">Created</div>
+        <div className="mt-2 overflow-auto">
+          {format(parseISO(view.createdAt as unknown as string), 'PPpp')}
+        </div>
+
         <div className="mt-4 font-medium text-gray-600">User</div>
         <div className="p-3 mt-2 overflow-auto font-mono bg-gray-100 rounded-lg">
           {view.userId}
