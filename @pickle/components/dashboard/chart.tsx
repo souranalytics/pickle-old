@@ -35,7 +35,7 @@ export const Chart: FunctionComponent<Props> = ({
   return (
     <div
       className={twMerge(
-        'flex flex-col bg-white rounded-lg shadow',
+        'flex flex-col bg-white rounded-lg shadow h-60',
         className
       )}>
       <div className="p-3 font-semibold border-b border-gray-100">

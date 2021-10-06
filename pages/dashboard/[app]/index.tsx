@@ -50,7 +50,7 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
         />
       }
       title="Dashboard">
-      <div className="grid gap-4 lg:grid-cols-3 h-60">
+      <div className="grid gap-4 lg:grid-cols-3">
         <Chart interval={interval} slug={slug} type={DashboardType.event} />
         <Chart interval={interval} slug={slug} type={DashboardType.view} />
         <Chart interval={interval} slug={slug} type={DashboardType.user} />
