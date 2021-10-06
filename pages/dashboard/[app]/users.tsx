@@ -36,7 +36,7 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
     <Layout
       header={
         <Pagination
-          className="mr-4"
+          className="m-4"
           next={data?.next}
           onChange={id => router.push(`/dashboard/${slug}/users?after=${id}`)}
         />
