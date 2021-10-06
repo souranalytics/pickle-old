@@ -54,7 +54,7 @@ table {
     @apply flex-1 bg-white;
 
     &:not(.dashboard) {
-      @apply px-4 py-8 lg:p-8;
+      @apply p-8;
     }
   }
 }

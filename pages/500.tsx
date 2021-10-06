@@ -1,12 +1,18 @@
-import { NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import React from 'react'
 
 import { Footer } from '@pickle/components/common/footer'
 import { Header } from '@pickle/components/common/header'
+import { getAsset } from '@pickle/lib/graphcms'
+import { Asset } from '@pickle/types/components'
 
-const ServerError: NextPage = () => (
+type Props = {
+  asset: Asset
+}
+
+const ServerError: NextPage<Props> = ({ asset }) => (
   <>
     <Head>
       <title>Error: Pickle</title>
@@ -17,9 +23,10 @@ const ServerError: NextPage = () => (
     <main className="flex flex-col items-center justify-center text-center">
       <Image
         alt="Server error"
-        height={2500 / 10}
-        src="https://kousttopufrewjfhpsmg.supabase.in/storage/v1/object/public/hero/server-error.png"
-        width={2500 / 10}
+        height={asset.height}
+        src={asset.url}
+        unoptimized
+        width={asset.width}
       />
 
       <h1 className="mt-8 text-6xl font-bold">Error</h1>
@@ -29,5 +36,15 @@ const ServerError: NextPage = () => (
     <Footer />
   </>
 )
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const asset = await getAsset('ckuf8683k95e20b151g7rry2a')
+
+  return {
+    props: {
+      asset
+    }
+  }
+}
 
 export default ServerError
