@@ -17,16 +17,15 @@ export const KeyCard: FunctionComponent<Props> = ({ className, data }) => {
   return (
     <div
       className={twMerge(
-        'flex items-center bg-white rounded-lg shadow p-4',
+        'flex items-center bg-white rounded-lg shadow',
         className
       )}>
-      <div className="flex-1 font-medium">{data.name}</div>
+      <div className="flex-1 m-4 font-medium">{data.name}</div>
 
-      <button className="ml-4" onClick={() => copy(data.id)}>
+      <button className="p-4" onClick={() => copy(data.id)}>
         <Icon
           className={copied ? 'text-emerald-600' : 'text-blue-600'}
           name={copied ? 'success' : 'copy'}
-          size={16}
         />
       </button>
     </div>

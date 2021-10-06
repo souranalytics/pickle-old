@@ -27,7 +27,7 @@ export const CollaboratorCard: FunctionComponent<Props> = ({
     </div>
 
     {collaborator.role === 'owner' && (
-      <Icon className="ml-4 text-amber-600" name="crown" size={16} />
+      <Icon className="ml-4 text-amber-600" name="crown" />
     )}
   </div>
 )
