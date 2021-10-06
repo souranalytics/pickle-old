@@ -81,7 +81,7 @@ export const SideBar: FunctionComponent = () => {
           visible ? 'translate-x-0' : '-translate-x-full'
         )}>
         <Link href="/">
-          <a className="p-4 lg:hidden">
+          <a className="p-4">
             <Logo size={24} />
           </a>
         </Link>
