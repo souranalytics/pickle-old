@@ -59,6 +59,7 @@ export type KeyResponse = {
 
 export type EventsResponse = {
   events: Array<Event>
+  next?: number
 }
 
 export type EventResponse = {
@@ -66,6 +67,7 @@ export type EventResponse = {
 }
 
 export type ViewsResponse = {
+  next?: number
   views: Array<View>
 }
 
@@ -74,6 +76,7 @@ export type ViewResponse = {
 }
 
 export type UsersResponse = {
+  next?: string
   users: Array<User>
 }
 

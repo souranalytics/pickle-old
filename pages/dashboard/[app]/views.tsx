@@ -1,13 +1,12 @@
-import compact from 'lodash/compact'
 import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useMemo } from 'react'
 import useSWR from 'swr'
 import { twMerge } from 'tailwind-merge'
 
-import { Icon } from '@pickle/components/common/icon'
 import { Message } from '@pickle/components/common/message'
 import { Layout } from '@pickle/components/dashboard/layout'
+import { Pagination } from '@pickle/components/dashboard/pagination'
 import { ViewCard } from '@pickle/components/views/card'
 import { getUser } from '@pickle/lib/auth'
 import { ViewsResponse } from '@pickle/types/api'
@@ -19,20 +18,28 @@ type Props = {
 const Dashboard: NextPage<Props> = ({ slug }) => {
   const router = useRouter()
 
-  const url = compact([`/views?slug=${slug}`, router.query.after]).join(
-    '&after='
-  )
+  const url = useMemo(() => {
+    const query = new URLSearchParams({
+      slug
+    })
+
+    if (router.query.after !== undefined) {
+      query.set('after', String(router.query.after))
+    }
+
+    return `/views?${query.toString()}`
+  }, [router.query.after, slug])
 
   const { data, error, isValidating } = useSWR<ViewsResponse>(url)
 
   return (
     <Layout
       header={
-        router.query.after ? undefined : (
-          <button className="p-4 text-primary-600">
-            <Icon name="sync" />
-          </button>
-        )
+        <Pagination
+          className="mr-4"
+          next={data?.next}
+          onChange={id => router.push(`/dashboard/${slug}/views?after=${id}`)}
+        />
       }
       loading={isValidating}
       title="Views">
@@ -43,21 +50,23 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
       )}
 
       {data && (
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>User</th>
-              <th colSpan={2}>Created</th>
-            </tr>
-          </thead>
+        <div className="overflow-x-auto whitespace-pre">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>User</th>
+                <th colSpan={2}>Created</th>
+              </tr>
+            </thead>
 
-          <tbody className="font-mono text-sm">
-            {data.views.map(view => (
-              <ViewCard key={view.id} view={view} />
-            ))}
-          </tbody>
-        </table>
+            <tbody className="font-mono text-sm">
+              {data.views.map(view => (
+                <ViewCard key={view.id} view={view} />
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </Layout>
   )

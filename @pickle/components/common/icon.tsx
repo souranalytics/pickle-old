@@ -49,6 +49,37 @@ export const ExpandIcon: FunctionComponent<ExpandIconProps> = ({
   </svg>
 )
 
+type ArrowIconProps = {
+  className?: string
+  direction?: 'up' | 'down' | 'left' | 'right'
+  size?: number
+}
+
+export const ArrowIcon: FunctionComponent<ArrowIconProps> = ({
+  className,
+  direction,
+  size = 24
+}) => (
+  <svg
+    className={twMerge(
+      'transform',
+      className,
+      direction === 'up'
+        ? 'rotate-180'
+        : direction === 'left'
+        ? 'rotate-90'
+        : direction === 'right'
+        ? '-rotate-90'
+        : null
+    )}
+    fill="currentColor"
+    height={size}
+    viewBox="0 0 48 48"
+    width={size}>
+    <path d="M 24.476562 5.9785156 A 1.50015 1.50015 0 0 0 23 7.5 L 23 36.878906 L 11.560547 25.439453 A 1.50015 1.50015 0 1 0 9.4394531 27.560547 L 23.439453 41.560547 A 1.50015 1.50015 0 0 0 25.560547 41.560547 L 39.560547 27.560547 A 1.50015 1.50015 0 1 0 37.439453 25.439453 L 26 36.878906 L 26 7.5 A 1.50015 1.50015 0 0 0 24.476562 5.9785156 z" />
+  </svg>
+)
+
 type MenuIconProps = {
   className?: string
   open?: boolean

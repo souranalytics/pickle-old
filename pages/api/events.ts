@@ -1,3 +1,4 @@
+import last from 'lodash/last'
 import { NextApiHandler, NextApiResponse } from 'next'
 import connect from 'next-connect'
 import { z } from 'zod'
@@ -14,7 +15,10 @@ import { zodJson } from '@pickle/lib/zod'
 import { EventResponse, EventsResponse } from '@pickle/types/api'
 
 const schemaGet = z.object({
-  after: z.number().optional(),
+  after: z
+    .string()
+    .optional()
+    .transform(id => (id ? Number(id) : undefined)),
   slug: z.string()
 })
 
@@ -34,15 +38,16 @@ const handler: NextApiHandler = connect(apiOptions)
     const app = await getApp(user, slug)
 
     const events = await prisma.event.findMany({
-      cursor: after
-        ? {
-            id: after
-          }
-        : undefined,
+      cursor:
+        after !== undefined
+          ? {
+              id: after
+            }
+          : undefined,
       orderBy: {
         createdAt: 'desc'
       },
-      skip: after ? 1 : undefined,
+      skip: after !== undefined ? 1 : undefined,
       take: 100,
       where: {
         app: {
@@ -52,7 +57,8 @@ const handler: NextApiHandler = connect(apiOptions)
     })
 
     res.json({
-      events
+      events,
+      next: last(events)?.id
     })
   })
   .post(async (req, res: NextApiResponse<EventResponse>) => {

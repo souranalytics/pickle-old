@@ -1,7 +1,7 @@
 import { App, CollaboratorRole } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Options } from 'next-connect'
-import { ZodSchema } from 'zod'
+import { ZodObject, ZodRawShape, ZodTypeAny } from 'zod'
 
 import { ApiError } from '@pickle/types/api'
 import { User } from '@pickle/types/supabase'
@@ -77,7 +77,10 @@ export const getAppByKey = async (req: NextApiRequest): Promise<App> => {
   return key.app
 }
 
-export const validateData = <T>(schema: ZodSchema<T>, data: unknown): T => {
+export const validateData = <T>(
+  schema: ZodObject<ZodRawShape, 'strip', ZodTypeAny, T>,
+  data: unknown
+): T => {
   const result = schema.safeParse(data)
 
   if (!result.success) {

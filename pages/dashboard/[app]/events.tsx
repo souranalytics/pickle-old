@@ -1,13 +1,12 @@
-import compact from 'lodash/compact'
 import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useMemo } from 'react'
 import useSWR from 'swr'
 import { twMerge } from 'tailwind-merge'
 
-import { Icon } from '@pickle/components/common/icon'
 import { Message } from '@pickle/components/common/message'
 import { Layout } from '@pickle/components/dashboard/layout'
+import { Pagination } from '@pickle/components/dashboard/pagination'
 import { EventCard } from '@pickle/components/events/card'
 import { getUser } from '@pickle/lib/auth'
 import { EventsResponse } from '@pickle/types/api'
@@ -19,20 +18,28 @@ type Props = {
 const Dashboard: NextPage<Props> = ({ slug }) => {
   const router = useRouter()
 
-  const url = compact([`/events?slug=${slug}`, router.query.after]).join(
-    '&after='
-  )
+  const url = useMemo(() => {
+    const query = new URLSearchParams({
+      slug
+    })
+
+    if (router.query.after !== undefined) {
+      query.set('after', String(router.query.after))
+    }
+
+    return `/events?${query.toString()}`
+  }, [router.query.after, slug])
 
   const { data, error, isValidating } = useSWR<EventsResponse>(url)
 
   return (
     <Layout
       header={
-        router.query.after ? undefined : (
-          <button className="p-4 text-primary-600">
-            <Icon name="sync" />
-          </button>
-        )
+        <Pagination
+          className="mr-4"
+          next={data?.next}
+          onChange={id => router.push(`/dashboard/${slug}/events?after=${id}`)}
+        />
       }
       loading={isValidating}
       title="Events">
@@ -43,21 +50,23 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
       )}
 
       {data && (
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>User</th>
-              <th colSpan={2}>Created</th>
-            </tr>
-          </thead>
+        <div className="overflow-x-auto whitespace-pre">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>User</th>
+                <th colSpan={2}>Created</th>
+              </tr>
+            </thead>
 
-          <tbody className="font-mono text-sm">
-            {data.events.map(event => (
-              <EventCard event={event} key={event.id} />
-            ))}
-          </tbody>
-        </table>
+            <tbody className="font-mono text-sm">
+              {data.events.map(event => (
+                <EventCard event={event} key={event.id} />
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </Layout>
   )

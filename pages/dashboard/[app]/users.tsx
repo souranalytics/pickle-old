@@ -1,13 +1,12 @@
-import compact from 'lodash/compact'
 import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useMemo } from 'react'
 import useSWR from 'swr'
 import { twMerge } from 'tailwind-merge'
 
-import { Icon } from '@pickle/components/common/icon'
 import { Message } from '@pickle/components/common/message'
 import { Layout } from '@pickle/components/dashboard/layout'
+import { Pagination } from '@pickle/components/dashboard/pagination'
 import { UserCard } from '@pickle/components/users/card'
 import { getUser } from '@pickle/lib/auth'
 import { UsersResponse } from '@pickle/types/api'
@@ -19,20 +18,28 @@ type Props = {
 const Dashboard: NextPage<Props> = ({ slug }) => {
   const router = useRouter()
 
-  const url = compact([`/users?slug=${slug}`, router.query.after]).join(
-    '&after='
-  )
+  const url = useMemo(() => {
+    const query = new URLSearchParams({
+      slug
+    })
+
+    if (router.query.after !== undefined) {
+      query.set('after', String(router.query.after))
+    }
+
+    return `/users?${query.toString()}`
+  }, [router.query.after, slug])
 
   const { data, error, isValidating } = useSWR<UsersResponse>(url)
 
   return (
     <Layout
       header={
-        router.query.after ? undefined : (
-          <button className="p-4 text-primary-600">
-            <Icon name="sync" />
-          </button>
-        )
+        <Pagination
+          className="mr-4"
+          next={data?.next}
+          onChange={id => router.push(`/dashboard/${slug}/users?after=${id}`)}
+        />
       }
       loading={isValidating}
       title="Users">
@@ -43,21 +50,23 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
       )}
 
       {data && (
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Created</th>
-              <th colSpan={2}>Updated</th>
-            </tr>
-          </thead>
+        <div className="overflow-x-auto whitespace-pre">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Created</th>
+                <th colSpan={2}>Updated</th>
+              </tr>
+            </thead>
 
-          <tbody className="font-mono text-sm">
-            {data.users.map(user => (
-              <UserCard key={user.id} user={user} />
-            ))}
-          </tbody>
-        </table>
+            <tbody className="font-mono text-sm">
+              {data.users.map(user => (
+                <UserCard key={user.id} user={user} />
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </Layout>
   )

@@ -1,3 +1,4 @@
+import last from 'lodash/last'
 import { NextApiHandler, NextApiResponse } from 'next'
 import connect from 'next-connect'
 import { z } from 'zod'
@@ -34,15 +35,16 @@ const handler: NextApiHandler = connect(apiOptions)
     const app = await getApp(user, slug)
 
     const users = await prisma.user.findMany({
-      cursor: after
-        ? {
-            id: after
-          }
-        : undefined,
+      cursor:
+        after !== undefined
+          ? {
+              id: after
+            }
+          : undefined,
       orderBy: {
         createdAt: 'desc'
       },
-      skip: after ? 1 : undefined,
+      skip: after !== undefined ? 1 : undefined,
       take: 100,
       where: {
         app: {
@@ -52,6 +54,7 @@ const handler: NextApiHandler = connect(apiOptions)
     })
 
     res.json({
+      next: last(users)?.id,
       users
     })
   })

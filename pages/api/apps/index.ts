@@ -38,7 +38,7 @@ const handler: NextApiHandler = connect(apiOptions)
   .post(async (req, res: NextApiResponse<AppResponse>) => {
     const user = await getUser(req)
 
-    const data = validateData(schemaPost, req.body)
+    const { name, planId } = validateData(schemaPost, req.body)
 
     const app = await prisma.app.create({
       data: {
@@ -57,10 +57,10 @@ const handler: NextApiHandler = connect(apiOptions)
             name: 'Default'
           }
         },
-        name: data.name,
+        name,
         plan: {
           connect: {
-            id: data.planId
+            id: planId
           }
         },
         slug: nanoid()
