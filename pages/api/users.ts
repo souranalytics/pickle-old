@@ -63,8 +63,8 @@ const handler: NextApiHandler = connect(apiOptions)
 
     const { anonymousId, data, id, meta } = validateData(schemaPost, req.body)
 
-    const user = await prisma.user.create({
-      data: {
+    const user = await prisma.user.upsert({
+      create: {
         anonymousId,
         app: {
           connect: {
@@ -74,6 +74,14 @@ const handler: NextApiHandler = connect(apiOptions)
         data,
         id,
         meta
+      },
+      update: {
+        anonymousId,
+        data,
+        meta
+      },
+      where: {
+        id
       }
     })
 
