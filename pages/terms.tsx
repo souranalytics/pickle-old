@@ -33,7 +33,7 @@ const Terms: NextPage<Props> = ({ asset, page }) => (
 
       <h1 className="mt-8 text-6xl font-bold">{page.title}</h1>
 
-      <Markdown className="mt-8 text-xl">{page.content}</Markdown>
+      <Markdown className="mt-8 prose-xl">{page.content}</Markdown>
     </main>
 
     <Footer />

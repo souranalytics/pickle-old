@@ -1,9 +1,10 @@
 const colors = require('tailwindcss/colors')
+const typography = require('@tailwindcss/typography')
 
 module.exports = {
   darkMode: false,
   mode: 'jit',
-  plugins: [],
+  plugins: [typography],
   purge: [
     '@pickle/components/**/*.tsx',
     'pages/**/*.tsx',
