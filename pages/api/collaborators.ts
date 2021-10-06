@@ -8,21 +8,21 @@ import { prisma } from '@pickle/lib/prisma'
 import { CollaboratorResponse, CollaboratorsResponse } from '@pickle/types/api'
 
 const schemaGet = z.object({
-  app: z.string()
+  slug: z.string()
 })
 
 const schemaPost = z.object({
-  app: z.string(),
-  email: z.string().email()
+  email: z.string().email(),
+  slug: z.string()
 })
 
 const handler: NextApiHandler = connect(apiOptions)
   .get(async (req, res: NextApiResponse<CollaboratorsResponse>) => {
     const user = await getUser(req)
 
-    const data = validateData(schemaGet, req.query)
+    const { slug } = validateData(schemaGet, req.query)
 
-    const app = await getApp(user, data.app)
+    const app = await getApp(user, slug)
 
     const collaborators = await prisma.collaborator.findMany({
       include: {
@@ -45,16 +45,16 @@ const handler: NextApiHandler = connect(apiOptions)
   .post(async (req, res: NextApiResponse<CollaboratorResponse>) => {
     const user = await getUser(req)
 
-    const data = validateData(schemaPost, {
+    const { email, slug } = validateData(schemaPost, {
       ...req.query,
       ...req.body
     })
 
-    const app = await getApp(user, data.app, 'owner')
+    const app = await getApp(user, slug, 'owner')
 
     const profile = await prisma.profile.findUnique({
       where: {
-        email: data.email
+        email
       }
     })
 

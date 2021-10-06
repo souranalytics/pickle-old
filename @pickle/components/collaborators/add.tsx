@@ -53,7 +53,11 @@ export const CollaboratorAdd: FunctionComponent<Props> = ({
         <Form
           className="mt-8"
           onSubmit={async () => {
-            await addCollaborator(email)
+            const done = await addCollaborator(email)
+
+            if (!done) {
+              return
+            }
 
             setEmail('')
             setVisible(false)

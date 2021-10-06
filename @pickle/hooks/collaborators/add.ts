@@ -6,7 +6,7 @@ type Returns = {
   loading: boolean
   error?: string
 
-  addCollaborator: (email: string) => Promise<void>
+  addCollaborator: (email: string) => Promise<boolean>
 }
 
 export const useAddCollaborator = (slug: string): Returns => {
@@ -19,14 +19,21 @@ export const useAddCollaborator = (slug: string): Returns => {
         setLoading(true)
         setError(undefined)
 
-        await request(`/apps/${slug}/collaborators`, {
+        await request('/collaborators', {
           data: {
             email
           },
-          method: 'post'
+          method: 'post',
+          params: {
+            slug
+          }
         })
+
+        return true
       } catch (error) {
         setError(error.error)
+
+        return false
       } finally {
         setLoading(false)
       }

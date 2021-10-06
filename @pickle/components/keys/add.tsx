@@ -53,7 +53,11 @@ export const KeyAdd: FunctionComponent<Props> = ({
         <Form
           className="mt-8"
           onSubmit={async () => {
-            await addKey(name)
+            const done = await addKey(name)
+
+            if (!done) {
+              return
+            }
 
             setName('')
             setVisible(false)

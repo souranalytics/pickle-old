@@ -7,26 +7,26 @@ import { prisma } from '@pickle/lib/prisma'
 import { AppResponse } from '@pickle/types/api'
 
 const schemaGet = z.object({
-  app: z.string()
+  slug: z.string()
 })
 
 const schemaPut = z.object({
-  app: z.string(),
   name: z.string(),
-  planId: z.string().optional()
+  planId: z.string().optional(),
+  slug: z.string()
 })
 
 const schemaDelete = z.object({
-  app: z.string()
+  slug: z.string()
 })
 
 const handler: NextApiHandler = connect(apiOptions)
   .get(async (req, res: NextApiResponse<AppResponse>) => {
     const user = await getUser(req)
 
-    const data = validateData(schemaGet, req.query)
+    const { slug } = validateData(schemaGet, req.query)
 
-    const app = await getApp(user, data.app)
+    const app = await getApp(user, slug)
 
     res.json({
       app
@@ -35,14 +35,14 @@ const handler: NextApiHandler = connect(apiOptions)
   .put(async (req, res: NextApiResponse<AppResponse>) => {
     const user = await getUser(req)
 
-    const data = validateData(schemaPut, {
+    const { name, planId, slug } = validateData(schemaPut, {
       ...req.query,
       ...req.body
     })
 
-    const app = await getApp(user, data.app, 'owner')
+    const app = await getApp(user, slug, 'owner')
 
-    if (!data.planId && data.name === app.name) {
+    if (!planId && name === app.name) {
       return res.json({
         app
       })
@@ -50,10 +50,10 @@ const handler: NextApiHandler = connect(apiOptions)
 
     const next = await prisma.app.update({
       data: {
-        name: data.name,
+        name: name,
         plan: {
           connect: {
-            id: data.planId
+            id: planId
           }
         }
       },
@@ -69,9 +69,9 @@ const handler: NextApiHandler = connect(apiOptions)
   .delete(async (req, res: NextApiResponse<AppResponse>) => {
     const user = await getUser(req)
 
-    const data = validateData(schemaDelete, req.query)
+    const { slug } = validateData(schemaDelete, req.query)
 
-    const app = await getApp(user, data.app, 'owner')
+    const app = await getApp(user, slug, 'owner')
 
     const next = await prisma.app.delete({
       where: {

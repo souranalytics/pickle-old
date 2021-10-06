@@ -16,7 +16,7 @@ type Props = {
 
 const Dashboard: NextPage<Props> = ({ slug }) => {
   const { data, error, isValidating, mutate } = useSWR<CollaboratorsResponse>(
-    `/apps/${slug}/collaborators`
+    `/collaborators?slug=${slug}`
   )
 
   return (

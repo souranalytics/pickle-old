@@ -6,7 +6,7 @@ type Returns = {
   loading: boolean
   error?: string
 
-  addKey: (name: string) => Promise<void>
+  addKey: (name: string) => Promise<boolean>
 }
 
 export const useAddKey = (slug: string): Returns => {
@@ -19,14 +19,21 @@ export const useAddKey = (slug: string): Returns => {
         setLoading(true)
         setError(undefined)
 
-        await request(`/apps/${slug}/keys`, {
+        await request('/keys', {
           data: {
             name
           },
-          method: 'post'
+          method: 'post',
+          params: {
+            slug
+          }
         })
+
+        return true
       } catch (error) {
         setError(error.error)
+
+        return false
       } finally {
         setLoading(false)
       }
