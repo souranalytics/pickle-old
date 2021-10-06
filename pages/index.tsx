@@ -7,7 +7,7 @@ import React from 'react'
 import { Footer } from '@pickle/components/common/footer'
 import { Header } from '@pickle/components/common/header'
 import { getAsset } from '@pickle/lib/graphcms'
-import { Asset } from '@pickle/types/components'
+import { Asset } from '@pickle/types/asset'
 
 type Props = {
   asset: Asset

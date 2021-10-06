@@ -9,7 +9,7 @@ import { Header } from '@pickle/components/common/header'
 import { PlanCard } from '@pickle/components/pricing/plan'
 import { getAsset } from '@pickle/lib/graphcms'
 import { prisma } from '@pickle/lib/prisma'
-import { Asset } from '@pickle/types/components'
+import { Asset } from '@pickle/types/asset'
 import { Plan } from '@pickle/types/prisma'
 
 type Props = {

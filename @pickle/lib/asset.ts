@@ -1,16 +1,14 @@
-export const calculateClip = (
-  srcWidth: number,
-  srcHeight: number,
-  maxWidth: number,
-  maxHeight: number
-): {
-  height: number
-  width: number
-} => {
-  const ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight)
+import { Dimensions } from '@pickle/types/asset'
+import { Asset } from '@pickle/types/graphcms'
+
+export const getDimensions = (asset: Asset, size = 500): Dimensions => {
+  const height = asset.height as number
+  const width = asset.width as number
+
+  const ratio = Math.min(size / width, size / height)
 
   return {
-    height: Math.round(srcHeight * ratio),
-    width: Math.round(srcWidth * ratio)
+    height: Math.round(height * ratio),
+    width: Math.round(width * ratio)
   }
 }

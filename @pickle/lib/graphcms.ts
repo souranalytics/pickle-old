@@ -1,6 +1,6 @@
 import { gql, GraphQLClient } from 'graphql-request'
 
-import { Asset } from '@pickle/types/components'
+import { Asset } from '@pickle/types/asset'
 import {
   AssetUrlArgs,
   HelpArticle,
@@ -11,22 +11,43 @@ import {
   QueryPageArgs
 } from '@pickle/types/graphcms'
 
-import { calculateClip } from './asset'
+import { getDimensions } from './asset'
 
 export const graphcms = new GraphQLClient(process.env.GRAPH_CMS_URL)
 
 export const getPage = async (slug: string): Promise<Page> => {
-  const { page } = await graphcms.request<Pick<Query, 'page'>, QueryPageArgs>(
+  const { page } = await graphcms.request<
+    Pick<Query, 'page'>,
+    QueryPageArgs & AssetUrlArgs
+  >(
     gql`
-      query ($where: PageWhereUniqueInput!) {
+      query (
+        $where: PageWhereUniqueInput!
+        $transformation: AssetTransformationInput
+      ) {
         page(where: $where) {
+          slug
           title
           content
           updatedAt
+          image {
+            url(transformation: $transformation)
+            height
+            width
+          }
         }
       }
     `,
     {
+      transformation: {
+        image: {
+          resize: {
+            fit: ImageFit.Clip,
+            height: 1000,
+            width: 1000
+          }
+        }
+      },
       where: {
         slug
       }
@@ -96,7 +117,7 @@ export const getAsset = async (id: string, size = 500): Promise<Asset> => {
   }
 
   return {
-    ...calculateClip(asset.width as number, asset.height as number, size, size),
+    ...getDimensions(asset, size),
     url: asset.url
   }
 }

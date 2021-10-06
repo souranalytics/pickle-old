@@ -6,16 +6,15 @@ import Markdown from 'react-markdown'
 
 import { Footer } from '@pickle/components/common/footer'
 import { Header } from '@pickle/components/common/header'
-import { getAsset, getPage } from '@pickle/lib/graphcms'
-import { Asset } from '@pickle/types/components'
+import { getDimensions } from '@pickle/lib/asset'
+import { getPage } from '@pickle/lib/graphcms'
 import { Page } from '@pickle/types/graphcms'
 
 type Props = {
-  asset: Asset
   page: Page
 }
 
-const Privacy: NextPage<Props> = ({ asset, page }) => (
+const Privacy: NextPage<Props> = ({ page }) => (
   <>
     <Head>
       <title>{page.title}: Pickle</title>
@@ -25,11 +24,10 @@ const Privacy: NextPage<Props> = ({ asset, page }) => (
 
     <main className="flex flex-col items-center justify-center text-center">
       <Image
+        {...getDimensions(page.image)}
         alt="Privacy"
-        height={asset.height}
-        src={asset.url}
+        src={page.image.url}
         unoptimized
-        width={asset.width}
       />
 
       <h1 className="mt-8 text-6xl font-bold">{page.title}</h1>
@@ -43,11 +41,9 @@ const Privacy: NextPage<Props> = ({ asset, page }) => (
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const page = await getPage('privacy')
-  const asset = await getAsset('ckuf8683khe470c6036536fx9')
 
   return {
     props: {
-      asset,
       page
     }
   }

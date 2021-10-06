@@ -7,7 +7,7 @@ import { Footer } from '@pickle/components/common/footer'
 import { Header } from '@pickle/components/common/header'
 import { ArticleCard } from '@pickle/components/help/article'
 import { getAsset, getHelpArticles } from '@pickle/lib/graphcms'
-import { Asset } from '@pickle/types/components'
+import { Asset } from '@pickle/types/asset'
 import { HelpArticle } from '@pickle/types/graphcms'
 
 type Props = {

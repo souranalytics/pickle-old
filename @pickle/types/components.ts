@@ -9,9 +9,3 @@ export type SideBarLinks = Array<
     label: string
   }>
 >
-
-export type Asset = {
-  url: string
-  height: number
-  width: number
-}
