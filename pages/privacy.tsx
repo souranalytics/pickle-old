@@ -28,6 +28,7 @@ const Privacy: NextPage<Props> = ({ asset, page }) => (
         alt="Privacy"
         height={asset.height}
         src={asset.url}
+        unoptimized
         width={asset.width}
       />
 

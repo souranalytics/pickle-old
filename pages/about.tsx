@@ -28,6 +28,7 @@ const About: NextPage<Props> = ({ asset, page }) => (
         alt="About"
         height={asset.height}
         src={asset.url}
+        unoptimized
         width={asset.width}
       />
 

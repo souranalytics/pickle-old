@@ -30,6 +30,7 @@ const Pricing: NextPage<Props> = ({ asset, plans }) => (
         alt="Pricing"
         height={asset.height}
         src={asset.url}
+        unoptimized
         width={asset.width}
       />
 
