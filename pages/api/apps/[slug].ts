@@ -51,11 +51,13 @@ const handler: NextApiHandler = connect(apiOptions)
     const next = await prisma.app.update({
       data: {
         name: name,
-        plan: {
-          connect: {
-            id: planId
-          }
-        }
+        plan: planId
+          ? {
+              connect: {
+                id: planId
+              }
+            }
+          : undefined
       },
       where: {
         id: app.id
