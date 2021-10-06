@@ -81,8 +81,11 @@ export const SideBar: FunctionComponent = () => {
           visible ? 'translate-x-0' : '-translate-x-full'
         )}>
         <Link href="/">
-          <a className="p-4">
-            <Logo size={24} />
+          <a className="flex items-center p-4">
+            <Logo size={16} />
+            <span className="ml-2 font-medium text-black lowercase">
+              Pickle
+            </span>
           </a>
         </Link>
 
