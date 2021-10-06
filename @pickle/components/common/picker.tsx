@@ -1,5 +1,7 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
+
+import { useClickOutside } from '@pickle/hooks/utils/click-outside'
 
 import { ExpandIcon } from './icon'
 
@@ -21,12 +23,16 @@ export const Picker: FunctionComponent<Props> = ({
   placeholder,
   value
 }) => {
+  const ref = useRef<HTMLDivElement>(null)
+
   const [visible, setVisible] = useState(false)
+
+  useClickOutside(ref, () => setVisible(false))
 
   const item = data.find(data => data.value === value)
 
   return (
-    <div className={twMerge('relative', className)}>
+    <div className={twMerge('relative', className)} ref={ref}>
       <button
         className={twMerge(
           'flex items-center justify-between font-medium text-white px-3 py-2 w-full',
