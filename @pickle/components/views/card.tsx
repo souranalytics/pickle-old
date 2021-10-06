@@ -1,6 +1,7 @@
-import { View } from '@prisma/client'
 import { format, parseISO } from 'date-fns'
 import React, { FunctionComponent, useState } from 'react'
+
+import { View } from '@pickle/types/prisma'
 
 import { Icon } from '../common/icon'
 import { Modal } from '../common/modal'

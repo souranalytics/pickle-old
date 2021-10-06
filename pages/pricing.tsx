@@ -1,4 +1,3 @@
-import { Plan } from '@prisma/client'
 import { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -8,6 +7,7 @@ import { Footer } from '@pickle/components/common/footer'
 import { Header } from '@pickle/components/common/header'
 import { PlanCard } from '@pickle/components/pricing/plan'
 import { prisma } from '@pickle/lib/prisma'
+import { Plan } from '@pickle/types/prisma'
 
 type Props = {
   plans: Array<Plan>

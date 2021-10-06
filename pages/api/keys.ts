@@ -1,4 +1,3 @@
-import { Key } from '@prisma/client'
 import { NextApiHandler, NextApiResponse } from 'next'
 import connect from 'next-connect'
 import { z } from 'zod'
@@ -6,6 +5,7 @@ import { z } from 'zod'
 import { apiOptions, getApp, getUser, validateData } from '@pickle/lib/api'
 import { prisma } from '@pickle/lib/prisma'
 import { KeyResponse, KeysResponse } from '@pickle/types/api'
+import { Key } from '@pickle/types/prisma'
 
 const schemaGet = z.object({
   slug: z.string()

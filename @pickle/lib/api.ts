@@ -1,9 +1,9 @@
-import { App, CollaboratorRole } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Options } from 'next-connect'
 import { ZodObject, ZodRawShape, ZodTypeAny } from 'zod'
 
 import { ApiError } from '@pickle/types/api'
+import { App, CollaboratorRole } from '@pickle/types/prisma'
 import { User } from '@pickle/types/supabase'
 
 import { apiError } from './error'

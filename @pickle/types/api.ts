@@ -1,4 +1,5 @@
 import type { Serie } from '@nivo/line'
+
 import {
   App,
   Collaborator,
@@ -8,7 +9,7 @@ import {
   Profile,
   User,
   View
-} from '@prisma/client'
+} from './prisma'
 
 export type ApiError = {
   code: number

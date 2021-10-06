@@ -5,8 +5,8 @@ import { twMerge } from 'tailwind-merge'
 
 import { Message } from '@pickle/components/common/message'
 import { Layout } from '@pickle/components/dashboard/layout'
-import { KeyAdd } from '@pickle/components/keys/add'
 import { KeyCard } from '@pickle/components/keys/card'
+import { KeyCreate } from '@pickle/components/keys/create'
 import { getUser } from '@pickle/lib/auth'
 import { KeysResponse } from '@pickle/types/api'
 
@@ -21,7 +21,7 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
 
   return (
     <Layout
-      header={<KeyAdd className="m-4" onAdd={mutate} slug={slug} />}
+      header={<KeyCreate className="m-4" onCreate={mutate} slug={slug} />}
       loading={isValidating}
       title="Keys">
       {error && (

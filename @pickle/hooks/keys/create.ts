@@ -6,22 +6,22 @@ type Returns = {
   loading: boolean
   error?: string
 
-  addCollaborator: (email: string) => Promise<boolean>
+  createKey: (name: string) => Promise<boolean>
 }
 
-export const useAddCollaborator = (slug: string): Returns => {
+export const useCreateKey = (slug: string): Returns => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string>()
 
-  const addCollaborator = useCallback(
-    async (email: string) => {
+  const createKey = useCallback(
+    async (name: string) => {
       try {
         setLoading(true)
         setError(undefined)
 
-        await request('/collaborators', {
+        await request('/keys', {
           data: {
-            email
+            name
           },
           method: 'post',
           params: {
@@ -42,7 +42,7 @@ export const useAddCollaborator = (slug: string): Returns => {
   )
 
   return {
-    addCollaborator,
+    createKey,
     error,
     loading
   }

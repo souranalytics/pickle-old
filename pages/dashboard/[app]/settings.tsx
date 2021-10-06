@@ -10,7 +10,7 @@ import { Message } from '@pickle/components/common/message'
 import { Spinner } from '@pickle/components/common/spinner'
 import { Layout } from '@pickle/components/dashboard/layout'
 import { PlansCard } from '@pickle/components/pricing/plans'
-import { useEditApp } from '@pickle/hooks/apps/edit'
+import { useUpdateApp } from '@pickle/hooks/apps/update'
 import { getUser } from '@pickle/lib/auth'
 import { AppResponse } from '@pickle/types/api'
 
@@ -21,7 +21,7 @@ type Props = {
 const Dashboard: NextPage<Props> = ({ slug }) => {
   const { data } = useSWR<AppResponse>(`/apps/${slug}`)
 
-  const { error, loading, updateApp } = useEditApp(slug)
+  const { error, loading, updateApp } = useUpdateApp(slug)
 
   const [name, setName] = useState('')
   const [planId, setPlanId] = useState<string>()

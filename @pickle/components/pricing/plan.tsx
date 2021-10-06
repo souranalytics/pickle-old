@@ -1,10 +1,10 @@
-import { Plan } from '@prisma/client'
 import millify from 'millify'
 import pluralize from 'pluralize'
 import React, { FunctionComponent } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import { formatAmount } from '@pickle/lib/utils'
+import { Plan } from '@pickle/types/prisma'
 
 type Props = {
   className?: string

@@ -9,11 +9,11 @@ import { Header } from '@pickle/components/common/header'
 import { Input } from '@pickle/components/common/input'
 import { Message } from '@pickle/components/common/message'
 import { PlansCard } from '@pickle/components/pricing/plans'
-import { useNewApp } from '@pickle/hooks/apps/new'
+import { useCreateApp } from '@pickle/hooks/apps/create'
 import { getUser } from '@pickle/lib/auth'
 
 const SignIn: NextPage = () => {
-  const { createApp, error, loading } = useNewApp()
+  const { createApp, error, loading } = useCreateApp()
 
   const [name, setName] = useState('')
   const [planId, setPlanId] = useState<string>()

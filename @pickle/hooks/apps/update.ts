@@ -8,42 +8,42 @@ type Returns = {
   loading: boolean
   error?: string
 
-  createApp: (name: string, planId: string) => Promise<void>
+  updateApp: (name: string, planId: string) => Promise<void>
 }
 
-export const useNewApp = (): Returns => {
+export const useUpdateApp = (slug: string): Returns => {
   const router = useRouter()
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string>()
 
-  const createApp = useCallback(
+  const updateApp = useCallback(
     async (name: string, planId: string) => {
       try {
         setLoading(true)
         setError(undefined)
 
-        const { app } = await request<AppResponse>('/apps', {
+        const { app } = await request<AppResponse>(`/apps/${slug}`, {
           data: {
             name,
             planId
           },
-          method: 'post'
+          method: 'put'
         })
 
-        router.push(`/dashboard/${app.slug}`)
+        router.push(`/dashboard/${app.slug}/settings`)
       } catch (error) {
         setError(error.error)
       } finally {
         setLoading(false)
       }
     },
-    [router]
+    [router, slug]
   )
 
   return {
-    createApp,
     error,
-    loading
+    loading,
+    updateApp
   }
 }

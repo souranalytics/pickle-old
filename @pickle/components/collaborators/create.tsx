@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-import { useAddCollaborator } from '@pickle/hooks/collaborators/add'
+import { useCreateCollaborator } from '@pickle/hooks/collaborators/create'
 
 import { Button } from '../common/button'
 import { Form } from '../common/form'
@@ -13,17 +13,17 @@ type Props = {
   className?: string
   slug: string
 
-  onAdd: () => void
+  onCreate: () => void
 }
 
-export const CollaboratorAdd: FunctionComponent<Props> = ({
+export const CollaboratorCreate: FunctionComponent<Props> = ({
   className,
-  onAdd,
+  onCreate,
   slug
 }) => {
   const [visible, setVisible] = useState(false)
 
-  const { addCollaborator, error, loading } = useAddCollaborator(slug)
+  const { createCollaborator, error, loading } = useCreateCollaborator(slug)
 
   const [email, setEmail] = useState('')
 
@@ -53,7 +53,7 @@ export const CollaboratorAdd: FunctionComponent<Props> = ({
         <Form
           className="mt-8"
           onSubmit={async () => {
-            const done = await addCollaborator(email)
+            const done = await createCollaborator(email)
 
             if (!done) {
               return
@@ -62,7 +62,7 @@ export const CollaboratorAdd: FunctionComponent<Props> = ({
             setEmail('')
             setVisible(false)
 
-            onAdd()
+            onCreate()
           }}>
           <Input
             label="What's their email?"

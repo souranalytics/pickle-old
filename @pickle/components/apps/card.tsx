@@ -1,7 +1,8 @@
-import { App } from '@prisma/client'
 import Link from 'next/link'
 import React, { FunctionComponent } from 'react'
 import { twMerge } from 'tailwind-merge'
+
+import { App } from '@pickle/types/prisma'
 
 type Props = {
   className?: string

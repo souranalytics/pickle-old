@@ -3,8 +3,8 @@ import React from 'react'
 import useSWR from 'swr'
 import { twMerge } from 'tailwind-merge'
 
-import { CollaboratorAdd } from '@pickle/components/collaborators/add'
 import { CollaboratorCard } from '@pickle/components/collaborators/card'
+import { CollaboratorCreate } from '@pickle/components/collaborators/create'
 import { Message } from '@pickle/components/common/message'
 import { Layout } from '@pickle/components/dashboard/layout'
 import { getUser } from '@pickle/lib/auth'
@@ -21,7 +21,9 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
 
   return (
     <Layout
-      header={<CollaboratorAdd className="m-4" onAdd={mutate} slug={slug} />}
+      header={
+        <CollaboratorCreate className="m-4" onCreate={mutate} slug={slug} />
+      }
       loading={isValidating}
       title="Collaborators">
       {error && (

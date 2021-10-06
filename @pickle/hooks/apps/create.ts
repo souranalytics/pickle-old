@@ -1,48 +1,48 @@
+import { useRouter } from 'next/router'
 import { useCallback, useState } from 'react'
 
 import { request } from '@pickle/lib/request'
+import { AppResponse } from '@pickle/types/api'
 
 type Returns = {
   loading: boolean
   error?: string
 
-  addKey: (name: string) => Promise<boolean>
+  createApp: (name: string, planId: string) => Promise<void>
 }
 
-export const useAddKey = (slug: string): Returns => {
+export const useCreateApp = (): Returns => {
+  const router = useRouter()
+
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string>()
 
-  const addKey = useCallback(
-    async (name: string) => {
+  const createApp = useCallback(
+    async (name: string, planId: string) => {
       try {
         setLoading(true)
         setError(undefined)
 
-        await request('/keys', {
+        const { app } = await request<AppResponse>('/apps', {
           data: {
-            name
+            name,
+            planId
           },
-          method: 'post',
-          params: {
-            slug
-          }
+          method: 'post'
         })
 
-        return true
+        router.push(`/dashboard/${app.slug}`)
       } catch (error) {
         setError(error.error)
-
-        return false
       } finally {
         setLoading(false)
       }
     },
-    [slug]
+    [router]
   )
 
   return {
-    addKey,
+    createApp,
     error,
     loading
   }

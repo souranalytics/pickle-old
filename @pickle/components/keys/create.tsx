@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-import { useAddKey } from '@pickle/hooks/keys/add'
+import { useCreateKey } from '@pickle/hooks/keys/create'
 
 import { Button } from '../common/button'
 import { Form } from '../common/form'
@@ -13,17 +13,17 @@ type Props = {
   className?: string
   slug: string
 
-  onAdd: () => void
+  onCreate: () => void
 }
 
-export const KeyAdd: FunctionComponent<Props> = ({
+export const KeyCreate: FunctionComponent<Props> = ({
   className,
-  onAdd,
+  onCreate,
   slug
 }) => {
   const [visible, setVisible] = useState(false)
 
-  const { addKey, error, loading } = useAddKey(slug)
+  const { createKey, error, loading } = useCreateKey(slug)
 
   const [name, setName] = useState('')
 
@@ -53,7 +53,7 @@ export const KeyAdd: FunctionComponent<Props> = ({
         <Form
           className="mt-8"
           onSubmit={async () => {
-            const done = await addKey(name)
+            const done = await createKey(name)
 
             if (!done) {
               return
@@ -62,7 +62,7 @@ export const KeyAdd: FunctionComponent<Props> = ({
             setName('')
             setVisible(false)
 
-            onAdd()
+            onCreate()
           }}>
           <Input
             description="Like Staging or Production"
