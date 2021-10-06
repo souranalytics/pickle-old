@@ -4,7 +4,7 @@
   "scripts": {
     "build": "next build",
     "db:dev": "yarn prisma migrate dev",
-    "db:migrate": "env-cmd -f .env.production prisma migrate deploy",
+    "db:migrate": "env-cmd -f .env.production.local prisma migrate deploy",
     "db:push": "yarn prisma db push",
     "db:seed": "yarn prisma db seed",
     "dev": "concurrently 'next dev' 'quirrel'",
