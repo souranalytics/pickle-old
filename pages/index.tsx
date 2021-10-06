@@ -33,7 +33,7 @@ const Home: NextPage<Props> = ({ asset }) => (
       <section className="flex flex-col items-center mt-16 text-center lg:items-start lg:text-left lg:mt-0">
         <h1 className="text-6xl font-bold">Pickle</h1>
         <div className="mt-4 text-4xl font-medium text-gray-800">
-          Privacy and developer first analytics
+          Privacy and developer-first analytics
         </div>
 
         <Link href="/auth/sign-up">
