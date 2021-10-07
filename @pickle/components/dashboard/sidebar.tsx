@@ -113,7 +113,7 @@ const Links: FunctionComponent = () => {
       {
         href: 'keys',
         icon: 'key',
-        label: 'keys'
+        label: 'Keys'
       },
       {
         href: 'settings',
