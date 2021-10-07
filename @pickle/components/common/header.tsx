@@ -32,9 +32,7 @@ export const Header: FunctionComponent = () => {
       <Link href="/">
         <a className="flex items-center">
           <Logo size={32} />
-          <span className="ml-4 text-xl font-semibold text-black lowercase">
-            Pickle
-          </span>
+          <span className="ml-4 text-xl font-semibold text-black">Pickle</span>
         </a>
       </Link>
 

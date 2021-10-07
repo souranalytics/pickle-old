@@ -40,9 +40,7 @@ export const SideBar: FunctionComponent = () => {
         <Link href="/">
           <a className="flex items-center p-4">
             <Logo size={16} />
-            <span className="ml-2 font-medium text-black lowercase">
-              Pickle
-            </span>
+            <span className="ml-2 font-medium text-black">Pickle</span>
           </a>
         </Link>
 
