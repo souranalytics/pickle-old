@@ -1,4 +1,3 @@
-import last from 'lodash/last'
 import { NextApiHandler, NextApiResponse } from 'next'
 import connect from 'next-connect'
 import { z } from 'zod'
@@ -58,7 +57,7 @@ const handler: NextApiHandler = connect(apiOptions)
 
     res.json({
       events,
-      next: last(events)?.id
+      next: events[100]?.id
     })
   })
   .post(async (req, res: NextApiResponse<EventResponse>) => {
