@@ -34,7 +34,7 @@ export const PlansCard: FunctionComponent<Props> = ({
                 'flex flex-col items-center p-3 ml-4 first:ml-0 transition',
                 plan.id === value
                   ? 'bg-primary-600 text-white rounded-xl'
-                  : 'bg-primary-200 rounded-lg'
+                  : 'bg-primary-50 rounded-lg'
               )}
               key={plan.id}
               onClick={() => onChange(plan.id)}
@@ -50,7 +50,7 @@ export const PlansCard: FunctionComponent<Props> = ({
         <Spinner className="mt-2" />
       )}
 
-      <div className="mt-2 text-gray-600">
+      <div className="mt-2 text-sm text-gray-600">
         Find more details on the{' '}
         <Link href="/pricing">
           <a>pricing page</a>

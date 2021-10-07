@@ -113,7 +113,7 @@ const Links: FunctionComponent = () => {
       {
         href: 'keys',
         icon: 'key',
-        label: 'API keys'
+        label: 'keys'
       },
       {
         href: 'settings',
@@ -154,7 +154,7 @@ const Links: FunctionComponent = () => {
               <Link href={url} key={`item-${index}`}>
                 <a
                   className={twMerge(
-                    'flex items-center px-4 py-2 font-medium hover:bg-primary-50',
+                    'flex items-center px-4 py-2 font-medium hover:bg-primary-50 xl:rounded-l-lg',
                     (href === '' ? path === url : path.startsWith(url))
                       ? 'text-primary-600 font-semibold'
                       : 'text-gray-600'
@@ -179,7 +179,7 @@ const AuthCard: FunctionComponent = () => {
   return (
     <div className="flex flex-col py-4 mt-auto">
       <Link href="/docs">
-        <a className="flex items-center px-4 py-2 font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-50">
+        <a className="flex items-center px-4 py-2 font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-50 xl:rounded-l-lg">
           <Icon name="documents" size={16} />
           <span className="ml-2">Docs</span>
         </a>
@@ -187,7 +187,7 @@ const AuthCard: FunctionComponent = () => {
 
       {data ? (
         <Link href="/profile">
-          <a className="flex items-center px-4 py-2 font-medium text-accent-600 hover:bg-accent-50">
+          <a className="flex items-center px-4 py-2 font-medium text-accent-600 hover:bg-accent-50 xl:rounded-l-lg">
             <Icon name="profile" size={16} />
             <span className="ml-2">{data?.profile?.name}</span>
           </a>
@@ -197,7 +197,7 @@ const AuthCard: FunctionComponent = () => {
       )}
 
       <button
-        className="flex items-center px-4 py-2 font-medium text-left hover:bg-rose-50 text-rose-600"
+        className="flex items-center px-4 py-2 font-medium text-left hover:bg-rose-50 text-rose-600 xl:rounded-l-lg"
         onClick={async () => {
           await supabase.auth.signOut()
 
