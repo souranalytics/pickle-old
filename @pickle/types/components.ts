@@ -9,3 +9,9 @@ export type SideBarLinks = Array<
     label: string
   }>
 >
+
+export type Heading = {
+  anchor: string
+  level: number
+  title: string
+}

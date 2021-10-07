@@ -1,8 +1,8 @@
+import Markdown from 'markdown-to-jsx'
 import { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import React from 'react'
-import Markdown from 'react-markdown'
 
 import { Footer } from '@pickle/components/common/footer'
 import { Header } from '@pickle/components/common/header'

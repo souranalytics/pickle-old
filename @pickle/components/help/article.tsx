@@ -1,5 +1,5 @@
+import Markdown from 'markdown-to-jsx'
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import Markdown from 'react-markdown'
 import { twMerge } from 'tailwind-merge'
 
 import { HelpArticle } from '@pickle/types/graphcms'
