@@ -18,7 +18,7 @@ export const MarkdownRenderer: FunctionComponent<Props> = ({ children }) => {
         overrides: {
           code: {
             props: {
-              className: 'rounded-lg text-sm font-medium'
+              className: 'rounded-lg text-sm'
             }
           },
           h2: {

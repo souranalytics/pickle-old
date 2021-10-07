@@ -1,5 +1,5 @@
 import 'tailwindcss/tailwind.css'
-import 'highlight.js/styles/github-dark.css'
+import 'highlight.js/styles/github.css'
 import '../styles/global.scss'
 
 import { NextPage } from 'next'
