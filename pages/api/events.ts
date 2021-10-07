@@ -57,7 +57,7 @@ const handler: NextApiHandler = connect(apiOptions)
 
     res.json({
       events,
-      next: events[100]?.id
+      next: events[99]?.id
     })
   })
   .post(async (req, res: NextApiResponse<EventResponse>) => {

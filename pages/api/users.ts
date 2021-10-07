@@ -53,7 +53,7 @@ const handler: NextApiHandler = connect(apiOptions)
     })
 
     res.json({
-      next: users[100]?.id,
+      next: users[99]?.id,
       users
     })
   })
