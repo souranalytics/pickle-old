@@ -16,7 +16,7 @@ const Profile: NextPage = () => {
   return (
     <>
       <Head>
-        <title>New app: Pickle</title>
+        <title>Profile: Pickle</title>
       </Head>
 
       <Header />
