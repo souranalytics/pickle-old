@@ -39,8 +39,8 @@ export const SideBar: FunctionComponent = () => {
         )}>
         <Link href="/">
           <a className="flex items-center p-4">
-            <Logo size={16} />
-            <span className="ml-2 font-medium text-black">Pickle</span>
+            <Logo size={20} />
+            <span className="ml-3 text-lg font-medium text-black">Pickle</span>
           </a>
         </Link>
 
