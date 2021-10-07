@@ -26,7 +26,7 @@ export const MarkdownRenderer: FunctionComponent<Props> = ({ children }) => {
           },
           code: {
             props: {
-              className: 'rounded-lg text-sm'
+              className: 'rounded-lg'
             }
           },
           h2: {
@@ -61,7 +61,7 @@ export const MarkdownRenderer: FunctionComponent<Props> = ({ children }) => {
           },
           pre: {
             props: {
-              className: 'mt-4'
+              className: 'mt-4 text-sm'
             }
           },
           strong: {

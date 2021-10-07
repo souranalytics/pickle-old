@@ -9,6 +9,11 @@
   @apply bg-primary-100 text-black;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 1rem;
+}
+
 body {
   @apply cursor-default font-body bg-primary-50 lg:bg-white text-black;
 }

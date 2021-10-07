@@ -25,11 +25,11 @@ const Docs: NextPage<Props> = ({ page }) => (
       <h1 className="text-6xl font-bold">{page.title}</h1>
 
       <div className="flex flex-col lg:flex-row lg:mt-8">
-        <aside className="mt-8 bg-gray-100 rounded-t-lg lg:rounded-tr-none lg:rounded-l-lg lg:mt-0 lg:w-52">
+        <aside className="mt-8 bg-gray-100 rounded-t-xl lg:rounded-tr-none lg:rounded-l-xl lg:mt-0 lg:w-52">
           <Headings content={page.content} />
         </aside>
 
-        <section className="flex-1 p-4 rounded-b-lg lg:rounded-bl-none lg:rounded-r-lg bg-gray-50 lg:p-8">
+        <section className="flex-1 p-4 rounded-b-xl lg:rounded-bl-none lg:rounded-r-xl bg-gray-50 lg:p-8">
           <MarkdownRenderer>{page.content}</MarkdownRenderer>
         </section>
       </div>

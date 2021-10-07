@@ -39,7 +39,7 @@ export const Picker: FunctionComponent<Props> = ({
           visible ? 'bg-primary-500 rounded-t-lg' : 'bg-primary-600 rounded-lg'
         )}
         onClick={() => setVisible(!visible)}>
-        <span className="flex-1 text-left overflow-ellipsis">
+        <span className="flex-1 text-left truncate">
           {item?.label ?? placeholder}
         </span>
 
