@@ -15,6 +15,18 @@ import { getDimensions } from './asset'
 
 export const graphcms = new GraphQLClient(process.env.GRAPH_CMS_URL)
 
+export const getPages = async (): Promise<Array<string>> => {
+  const { pages } = await graphcms.request<Pick<Query, 'pages'>>(gql`
+    query {
+      pages {
+        slug
+      }
+    }
+  `)
+
+  return pages.map(({ slug }) => slug)
+}
+
 export const getPage = async (slug: string): Promise<Page> => {
   const { page } = await graphcms.request<
     Pick<Query, 'page'>,

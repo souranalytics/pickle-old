@@ -1,5 +1,5 @@
 import Markdown from 'markdown-to-jsx'
-import { GetStaticProps, NextPage } from 'next'
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import React from 'react'
@@ -7,14 +7,18 @@ import React from 'react'
 import { Footer } from '@pickle/components/common/footer'
 import { Header } from '@pickle/components/common/header'
 import { getDimensions } from '@pickle/lib/asset'
-import { getPage } from '@pickle/lib/graphcms'
+import { getPage, getPages } from '@pickle/lib/graphcms'
 import { Page } from '@pickle/types/graphcms'
 
 type Props = {
   page: Page
 }
 
-const Terms: NextPage<Props> = ({ page }) => (
+type Params = {
+  slug: string
+}
+
+const GraphCMSPage: NextPage<Props> = ({ page }) => (
   <>
     <Head>
       <title>{page.title}: Pickle</title>
@@ -25,7 +29,7 @@ const Terms: NextPage<Props> = ({ page }) => (
     <main className="flex flex-col items-center justify-center text-center">
       <Image
         {...getDimensions(page.image)}
-        alt="Terms"
+        alt={page.title}
         src={page.image.url}
         unoptimized
       />
@@ -39,8 +43,31 @@ const Terms: NextPage<Props> = ({ page }) => (
   </>
 )
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  const page = await getPage('terms')
+export const getStaticPaths: GetStaticPaths<Params> = async () => {
+  const pages = await getPages()
+
+  return {
+    fallback: false,
+    paths: pages.map(slug => ({
+      params: {
+        slug
+      }
+    }))
+  }
+}
+
+export const getStaticProps: GetStaticProps<Props, Params> = async ({
+  params
+}) => {
+  if (!params) {
+    return {
+      notFound: true
+    }
+  }
+
+  const { slug } = params
+
+  const page = await getPage(slug)
 
   return {
     props: {
@@ -49,4 +76,4 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   }
 }
 
-export default Terms
+export default GraphCMSPage
