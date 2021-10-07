@@ -20,6 +20,10 @@ export const Footer: FunctionComponent = () => {
         {
           href: '/docs',
           label: 'Docs'
+        },
+        {
+          href: '/contact',
+          label: 'Contact'
         }
       ],
       title: 'Pickle'

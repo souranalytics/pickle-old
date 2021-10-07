@@ -1,6 +1,7 @@
 import { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 import { Footer } from '@pickle/components/common/footer'
@@ -37,6 +38,14 @@ const Help: NextPage<Props> = ({ articles, asset }) => (
       {articles.map(article => (
         <ArticleCard article={article} className="mt-8" key={article.slug} />
       ))}
+
+      <p className="mt-8 text-gray-600">
+        We&#39;re adding help articles all the time. Check back later or{' '}
+        <Link href="/contact">
+          <a>get in touch</a>
+        </Link>
+        .
+      </p>
     </main>
 
     <Footer />
