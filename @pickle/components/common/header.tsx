@@ -8,7 +8,6 @@ import { Session } from '@pickle/types/supabase'
 
 import { MenuIcon } from './icon'
 import { Logo } from './logo'
-import { NavLink } from './nav-link'
 
 export const Header: FunctionComponent = () => {
   const router = useRouter()
@@ -41,7 +40,7 @@ export const Header: FunctionComponent = () => {
 
       <button
         className={twMerge(
-          'top-0 right-0 z-20 p-4 lg:hidden',
+          'top-0 right-0 z-20 p-6 lg:hidden',
           visible ? 'fixed' : 'absolute'
         )}
         onClick={() => setVisible(!visible)}>
@@ -83,5 +82,43 @@ export const Header: FunctionComponent = () => {
         )}
       </nav>
     </header>
+  )
+}
+
+type NavLinkProps = {
+  href: string
+  hero?: boolean
+
+  onClick?: () => void
+}
+
+const NavLink: FunctionComponent<NavLinkProps> = ({
+  children,
+  hero,
+  href,
+  onClick
+}) => {
+  const router = useRouter()
+
+  return (
+    <Link href={href}>
+      <a
+        className={twMerge(
+          'py-2 mt-4 first:mt-0 lg:mt-0 lg:ml-4 lg:first:ml-0 rounded-full',
+          hero
+            ? 'font-semibold px-4 bg-primary-600 hover:bg-accent-600 text-white hover:text-white'
+            : 'font-medium px-3 hover:bg-primary-100 text-black hover:text-black',
+          router.asPath === href && (hero ? 'bg-accent-600' : 'bg-primary-200')
+        )}
+        onClick={event => {
+          if (onClick) {
+            event.preventDefault()
+
+            onClick()
+          }
+        }}>
+        {children}
+      </a>
+    </Link>
   )
 }

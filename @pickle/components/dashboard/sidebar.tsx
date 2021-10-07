@@ -21,20 +21,20 @@ export const SideBar: FunctionComponent = () => {
     <>
       <div
         className={twMerge(
-          'fixed lg:hidden top-0 bottom-0 left-0 right-0 bg-black bg-opacity-75 opacity-0 pointer-events-none transition-opacity',
+          'fixed lg:hidden top-0 bottom-0 left-0 right-0 bg-black bg-opacity-75 opacity-0 pointer-events-none transition-opacity z-20',
           visible && 'pointer-events-auto opacity-100'
         )}
         onClick={() => setVisible(false)}
       />
       <button
-        className="fixed z-20 p-3 text-white rounded-full bg-primary-600 lg:hidden bottom-4 right-4"
+        className="fixed z-40 p-3 text-white rounded-full bg-primary-600 lg:hidden bottom-4 right-4"
         onClick={() => setVisible(!visible)}>
         <MenuIcon open={visible} />
       </button>
 
       <aside
         className={twMerge(
-          'fixed bg-white lg:static lg:translate-x-0 top-0 bottom-0 left-0 z-10 flex flex-col text-sm transition-transform transform right-1/4 lg:border-r lg:border-gray-200 lg:w-52',
+          'fixed bg-white lg:static lg:translate-x-0 top-0 bottom-0 left-0 z-30 flex flex-col text-sm transition-transform transform right-1/4 lg:border-r lg:border-gray-200 lg:w-52',
           visible ? 'translate-x-0' : '-translate-x-full'
         )}>
         <Link href="/">
