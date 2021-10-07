@@ -3,6 +3,8 @@ import React, { FunctionComponent, useEffect } from 'react'
 
 import { highlight } from '@pickle/lib/highlight'
 
+import { Url } from './url'
+
 type Props = {
   children: string
 }
@@ -16,6 +18,12 @@ export const MarkdownRenderer: FunctionComponent<Props> = ({ children }) => {
     <Markdown
       options={{
         overrides: {
+          Url: {
+            component: Url,
+            props: {
+              className: 'mt-4'
+            }
+          },
           code: {
             props: {
               className: 'rounded-lg text-sm'
