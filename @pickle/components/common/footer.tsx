@@ -1,3 +1,4 @@
+import { getYear } from 'date-fns'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { FunctionComponent } from 'react'
@@ -49,7 +50,7 @@ export const Footer: FunctionComponent = () => {
 
   return (
     <footer className="flex flex-col p-4 text-sm text-gray-600 lg:flex-row lg:justify-between lg:p-8">
-      <div>&#169; {new Date().getFullYear()} / Pickle</div>
+      <div>&#169; {getYear(new Date())} / Pickle</div>
 
       <div className="grid grid-cols-2 gap-4 mt-4 lg:mt-0 lg:gap-8">
         {links.map(({ links, title }) => (
