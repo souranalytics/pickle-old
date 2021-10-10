@@ -11,8 +11,8 @@ I wanted to build a no frills analytics service that's easy to integrate like Se
 - [TypeScript](https://www.typescriptlang.org)
 - [Next.js](https://nextjs.org)
 - [Prisma](https://www.prisma.io)
-- [Upstash](https://upstash.com)
-- [Supabase](https://supabase.io)
+- [Upstash](https://upstash.com), for caching
+- [Supabase](https://supabase.io), obv
 
 ## Demo
 
@@ -28,3 +28,7 @@ I wanted to build a no frills analytics service that's easy to integrate like Se
 
 - [x] Auth
 - [x] Database (with Prisma)
+
+### Planned
+
+- Storage (for data exports)
