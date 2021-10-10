@@ -24,7 +24,7 @@ export const getPages = async (): Promise<Array<string>> => {
     }
   `)
 
-  return pages.map(({ slug }) => slug)
+  return pages.map(({ slug }) => slug).filter(slug => !['docs'].includes(slug))
 }
 
 export const getPage = async (slug: string): Promise<Page> => {
