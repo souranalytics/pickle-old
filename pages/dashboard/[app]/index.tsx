@@ -17,10 +17,6 @@ const Dashboard: NextPage<Props> = ({ slug }) => {
 
   const intervals = [
     {
-      label: 'Today',
-      value: DashboardInterval.daily
-    },
-    {
       label: 'Last 7 days',
       value: DashboardInterval.weekly
     },

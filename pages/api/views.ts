@@ -10,8 +10,10 @@ import {
   validateData
 } from '@pickle/lib/api'
 import { prisma } from '@pickle/lib/prisma'
+import { upstash } from '@pickle/lib/upstash'
 import { zodJson } from '@pickle/lib/zod'
 import { ViewResponse, ViewsResponse } from '@pickle/types/api'
+import { DashboardType } from '@pickle/types/dashboard'
 
 const schemaGet = z.object({
   after: z
@@ -78,6 +80,8 @@ const handler: NextApiHandler = connect(apiOptions)
         userId
       }
     })
+
+    await upstash.increment(app.id, DashboardType.view)
 
     res.json({
       view

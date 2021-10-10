@@ -5,7 +5,6 @@ export enum DashboardType {
 }
 
 export enum DashboardInterval {
-  daily = 'daily',
   weekly = 'weekly',
   monthly = 'monthly'
 }

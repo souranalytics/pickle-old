@@ -30,7 +30,11 @@ export const Chart: FunctionComponent<Props> = ({
   )
 
   const color =
-    type === 'event' ? '#0284c7' : type === 'view' ? '#4f46e5' : '#9333ea'
+    type === DashboardType.event
+      ? '#059669' // emerald
+      : type === DashboardType.view
+      ? '#0369a1' // sky
+      : '#6d28d9' // violet
 
   return (
     <div
@@ -38,9 +42,17 @@ export const Chart: FunctionComponent<Props> = ({
         'flex flex-col bg-white rounded-lg shadow h-60',
         className
       )}>
-      <div className="p-3 font-semibold border-b border-gray-100">
-        {startCase(pluralize(type))}
+      <div className="flex items-center justify-between border-b border-gray-100">
+        <div className="p-3 font-semibold">{startCase(pluralize(type))}</div>
+        {data && (
+          <div
+            className="px-3 font-mono text-xl font-semibold"
+            title={data.data.count.toLocaleString('en-US')}>
+            {millify(data.data.count)}
+          </div>
+        )}
       </div>
+
       <div className="flex flex-1">
         {data ? (
           <ResponsiveLine
@@ -48,27 +60,32 @@ export const Chart: FunctionComponent<Props> = ({
             axisLeft={null}
             colors={color}
             crosshairType="x"
-            data={data.data}
+            data={[data.data]}
             enableGridX={false}
             enableGridY={false}
-            enablePoints={false}
             enableSlices="x"
-            isInteractive
             margin={{
+              bottom: 10,
+              left: 10,
+              right: 10,
               top: 10
             }}
             sliceTooltip={({ slice }) => (
               <div
-                className="flex items-center p-2 text-white rounded"
-                style={{
-                  backgroundColor: color
-                }}>
-                <span className="text-xl font-semibold leading-none">
+                className={twMerge(
+                  'p-3 text-center text-white rounded-lg ring-2',
+                  type === DashboardType.event
+                    ? 'bg-emerald-600 ring-emerald-800'
+                    : type === DashboardType.view
+                    ? 'bg-sky-600 ring-sky-800'
+                    : 'bg-violet-600 ring-violet-800'
+                )}>
+                <div className="font-mono text-xl font-semibold leading-none">
                   {millify(slice.points[0].data.y as number)}
-                </span>
-                <span className="ml-2 text-sm font-medium leading-none">
+                </div>
+                <div className="mt-2 text-sm font-medium leading-none">
                   {format(parseISO(slice.points[0].data.x as string), 'MMM d')}
-                </span>
+                </div>
               </div>
             )}
             theme={{
@@ -83,8 +100,7 @@ export const Chart: FunctionComponent<Props> = ({
                 line: {
                   stroke: '#a1a1aa'
                 }
-              },
-              fontFamily: 'Satoshi'
+              }
             }}
             useMesh
           />

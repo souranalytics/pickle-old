@@ -25,7 +25,7 @@ export type PlansResponse = {
 }
 
 export type DashboardResponse = {
-  data: Array<Serie>
+  data: Serie
 }
 
 export type AppsResponse = {
