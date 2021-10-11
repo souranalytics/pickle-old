@@ -13,6 +13,7 @@ I wanted to build a no frills analytics service that's easy to integrate like Se
 - [Prisma](https://www.prisma.io)
 - [Upstash](https://upstash.com), for caching
 - [Supabase](https://supabase.io), obv
+- [GraphCMS](https://graphcms.com), for assets and content
 
 ## Demo
 
