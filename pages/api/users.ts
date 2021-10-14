@@ -39,7 +39,10 @@ const handler: NextApiHandler = connect(apiOptions)
       cursor:
         after !== undefined
           ? {
-              id: after
+              id_appId: {
+                appId: app.id,
+                id: after
+              }
             }
           : undefined,
       orderBy: {
@@ -82,7 +85,10 @@ const handler: NextApiHandler = connect(apiOptions)
         meta
       },
       where: {
-        id
+        id_appId: {
+          appId: app.id,
+          id
+        }
       }
     })
 

@@ -121,7 +121,7 @@ model View {
 }
 
 model User {
-  id String @id
+  id String
 
   app   App @relation(fields: [appId], references: [id])
   appId Int
@@ -132,4 +132,6 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([id, appId])
 }

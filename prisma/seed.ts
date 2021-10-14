@@ -1,15 +1,37 @@
-import { PrismaClient } from '@prisma/client'
+import { Event, PrismaClient, User, View } from '@prisma/client'
 import chance from 'chance'
-import { subDays } from 'date-fns'
-import { range, sample } from 'lodash'
+import { formatISO, subDays } from 'date-fns'
+import { countBy, range, sample } from 'lodash'
+
+import { upstash } from '../@pickle/lib/upstash'
+import { DashboardType } from '../@pickle/types/dashboard'
 
 const prisma = new PrismaClient()
 
-const main = async () => {
-  const getDate = (start: Date, end: Date) =>
-    new Date(
-      start.getTime() + Math.random() * (end.getTime() - start.getTime())
+const getDate = (start = subDays(new Date(), 30), end = new Date()) =>
+  new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
+
+const getCount = (data: Array<User | Event | View>) =>
+  Object.entries(
+    countBy(data, item =>
+      formatISO(item.createdAt, {
+        representation: 'date'
+      })
     )
+  ).map(([date, count]) => ({
+    count,
+    date
+  }))
+
+const main = async () => {
+  await prisma.event.deleteMany()
+  await prisma.view.deleteMany()
+  await prisma.user.deleteMany()
+  await prisma.collaborator.deleteMany()
+  await prisma.key.deleteMany()
+  await prisma.app.deleteMany()
+  await prisma.profile.deleteMany()
+  await prisma.plan.deleteMany()
 
   await prisma.plan.createMany({
     data: [
@@ -93,12 +115,26 @@ const main = async () => {
     data: userIds.map(id => ({
       anonymousId: id,
       appId: app.id,
-      createdAt: getDate(subDays(new Date(), 30), new Date()),
-      data: {},
+      createdAt: getDate(),
+      data: {
+        city: chance().city(),
+        country: chance().country(),
+        latitude: chance().latitude(),
+        longitude: chance().longitude(),
+        state: chance().state()
+      },
       id: id,
       meta: {}
     }))
   })
+
+  const users = getCount(await prisma.user.findMany())
+
+  await Promise.all(
+    users.map(({ count, date }) =>
+      upstash.put(`${app.id}-${DashboardType.user}-${date}`, count)
+    )
+  )
 
   await prisma.event.createMany({
     data: range(10000).map(() => {
@@ -106,7 +142,7 @@ const main = async () => {
 
       return {
         appId: app.id,
-        createdAt: getDate(subDays(new Date(), 30), new Date()),
+        createdAt: getDate(),
         data: {},
         meta: {},
         name: sample(['sign_in', 'sign_up', 'sign_out']) as string,
@@ -115,13 +151,21 @@ const main = async () => {
     })
   })
 
+  const events = getCount(await prisma.event.findMany())
+
+  await Promise.all(
+    events.map(({ count, date }) =>
+      upstash.put(`${app.id}-${DashboardType.event}-${date}`, count)
+    )
+  )
+
   await prisma.view.createMany({
     data: range(5000).map(() => {
       const id = sample(userIds) as string
 
       return {
         appId: app.id,
-        createdAt: getDate(subDays(new Date(), 30), new Date()),
+        createdAt: getDate(),
         data: {},
         meta: {},
         name: sample(['Sign in', 'Sign up', 'Home', 'Profile']) as string,
@@ -129,14 +173,24 @@ const main = async () => {
       }
     })
   })
+
+  const views = getCount(await prisma.view.findMany())
+
+  await Promise.all(
+    views.map(({ count, date }) =>
+      upstash.put(`${app.id}-${DashboardType.view}-${date}`, count)
+    )
+  )
+
+  await prisma.$disconnect()
+
+  process.exit(0)
 }
 
-main()
-  .catch(error => {
-    console.error(error)
+main().catch(async error => {
+  console.error(error)
 
-    process.exit(1)
-  })
-  .finally(async () => {
-    await prisma.$disconnect()
-  })
+  await prisma.$disconnect()
+
+  process.exit(1)
+})
