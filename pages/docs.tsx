@@ -16,13 +16,13 @@ type Props = {
 const Docs: NextPage<Props> = ({ page }) => (
   <>
     <Head>
-      <title>{page.title}: Pickle</title>
+      <title>Docs: Pickle</title>
     </Head>
 
     <Header />
 
     <main>
-      <h1 className="text-6xl font-bold">{page.title}</h1>
+      <h1 className="text-6xl font-bold">Docs</h1>
 
       <div className="flex flex-col lg:flex-row lg:mt-8">
         <aside className="mt-8 bg-gray-100 rounded-t-xl lg:rounded-tr-none lg:rounded-l-xl lg:mt-0 lg:w-52">
