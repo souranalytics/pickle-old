@@ -1,3 +1,5 @@
+![Pickle](https://pickle.sh/pickle@2x.png)
+
 # Pickle
 
 Privacy and developer-first analytics
