@@ -10,10 +10,12 @@ I wanted to build a no frills analytics service that's easy to integrate like Se
 
 - [TypeScript](https://www.typescriptlang.org)
 - [Next.js](https://nextjs.org)
+- [Tailwind](https://tailwindcss.com)
 - [Prisma](https://www.prisma.io)
 - [Upstash](https://upstash.com), for caching
 - [Supabase](https://supabase.io), obv
 - [GraphCMS](https://graphcms.com), for assets and content
+- [Quirrel](https://quirrel.dev/), for jobs
 
 ## Demo
 
