@@ -1,4 +1,4 @@
-![Pickle](https://pickle.sh/pickle@2x.png)
+<img alt="Pickle" src="https://pickle.sh/pickle@2x.png" height="200" width="160" />
 
 # Pickle
 
